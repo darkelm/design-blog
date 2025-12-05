@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CSS VARIABLES / DESIGN TOKENS
+   ============================================ */
+:root {
+  /* Fonts - Replace with your brand fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  
+  /* Animation timing */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Transitions */
+  --transition-fast: 150ms var(--ease-smooth);
+  --transition-base: 250ms var(--ease-smooth);
+  --transition-slow: 400ms var(--ease-smooth);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-neutral-800;
+    font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on;
+  }
+
+  /* Focus states */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-accent-100 text-accent-900;
+  }
+}
+
+/* ============================================
+   PROSE / ARTICLE CONTENT
+   ============================================ */
+@layer components {
+  .prose {
+    @apply text-body-md text-neutral-700;
+  }
+
+  .prose h1 {
+    @apply text-display-lg font-semibold text-neutral-900 mt-12 mb-6;
+  }
+
+  .prose h2 {
+    @apply text-display-sm font-semibold text-neutral-900 mt-10 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-xl font-semibold text-neutral-900 mt-8 mb-3;
+  }
+
+  .prose p {
+    @apply mb-6;
+  }
+
+  .prose a {
+    @apply text-accent-600 underline underline-offset-2 hover:text-accent-800 transition-colors;
+  }
+
+  .prose strong {
+    @apply font-semibold text-neutral-900;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-6 pl-6;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose ul li {
+    @apply list-disc;
+  }
+
+  .prose ol li {
+    @apply list-decimal;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-neutral-200 pl-6 italic text-neutral-600 my-8;
+  }
+
+  .prose img {
+    @apply rounded-lg my-8;
+  }
+
+  .prose figure {
+    @apply my-10;
+  }
+
+  .prose figcaption {
+    @apply text-body-sm text-neutral-500 mt-3 text-center;
+  }
+
+  .prose pre {
+    @apply bg-neutral-900 text-neutral-100 rounded-lg p-6 overflow-x-auto my-8;
+  }
+
+  .prose code {
+    @apply bg-neutral-100 text-neutral-800 px-1.5 py-0.5 rounded text-sm;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .prose hr {
+    @apply border-neutral-200 my-12;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@layer utilities {
+  /* Stagger animation delays */
+  .stagger-1 { animation-delay: 100ms; }
+  .stagger-2 { animation-delay: 200ms; }
+  .stagger-3 { animation-delay: 300ms; }
+  .stagger-4 { animation-delay: 400ms; }
+  .stagger-5 { animation-delay: 500ms; }
+  .stagger-6 { animation-delay: 600ms; }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-transform duration-300;
+  }
+  .hover-lift:hover {
+    @apply -translate-y-1;
+  }
+
+  /* Image zoom on hover */
+  .hover-zoom {
+    @apply overflow-hidden;
+  }
+  .hover-zoom img {
+    @apply transition-transform duration-500;
+  }
+  .hover-zoom:hover img {
+    @apply scale-105;
+  }
+}
+
+/* ============================================
+   SMOOTH PAGE TRANSITIONS
+   ============================================ */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}

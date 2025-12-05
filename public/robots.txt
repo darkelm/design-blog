@@ -1,0 +1,12 @@
+# robots.txt for Design Blog
+
+User-agent: *
+Allow: /
+
+# Disallow admin/internal pages if you add them later
+# Disallow: /admin
+# Disallow: /api
+
+# Sitemap location (update with your actual domain)
+# Sitemap: https://your-domain.com/sitemap.xml
+
