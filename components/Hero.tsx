@@ -3,23 +3,58 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useRef, useEffect } from 'react'
+import { animateColorFade } from '@/lib/animations'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import type { Post } from '@/lib/types'
 import { formatDate, formatReadingTime, getPrimaryTagName, getPrimaryAuthorName } from '@/lib/utils'
 
 interface HeroProps {
   post: Post
+  backgroundColor?: string
+  textColor?: string
 }
 
-export function Hero({ post }: HeroProps) {
+export function Hero({ post, backgroundColor, textColor }: HeroProps) {
   const tagName = getPrimaryTagName(post.tags)
   const authorName = getPrimaryAuthorName(post.authors)
   const authorImage = post.authors?.[0]?.profile_image
+  const heroRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!heroRef.current || (!backgroundColor && !textColor)) return
+
+    // Animate color fade-in on scroll (starts when hero enters viewport)
+    const timeline = animateColorFade(heroRef.current, {
+      backgroundColor,
+      textColor,
+      duration: 0.6,
+      start: 'top 95%', // Start slightly earlier since it's at the top
+      ease: 'power2.out',
+    })
+
+    return () => {
+      if (timeline) {
+        timeline.kill()
+      }
+      if (heroRef.current) {
+        ScrollTrigger.getAll().forEach(trigger => {
+          if (trigger.vars.trigger === heroRef.current) {
+            trigger.kill()
+          }
+        })
+      }
+    }
+  }, [backgroundColor, textColor])
 
   return (
-    <div className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
+    <div 
+      ref={heroRef}
+      className="mx-auto max-w-content px-6 lg:px-section-x py-section-y"
+    >
       {/* Section Title */}
       <div className="flex items-center justify-center mb-12">
-        <h2 className="text-display-xl font-extrabold text-neutral-900 text-center">
+        <h2 className="text-display-xl font-extrabold text-center" style={{ color: 'inherit' }}>
           Feature
         </h2>
       </div>
@@ -59,19 +94,19 @@ export function Hero({ post }: HeroProps) {
           className="flex flex-col gap-6 items-center max-w-hero-content"
         >
           {/* Date */}
-          <p className="text-body-sm text-neutral-600 text-center">
+          <p className="text-body-sm text-center opacity-80" style={{ color: 'inherit' }}>
             {formatDate(post.published_at)}
           </p>
 
           {/* Title & Body */}
           <div className="flex flex-col gap-6 items-center">
             <Link href={`/post/${post.slug}`} className="group">
-              <h1 className="text-section-title font-medium text-neutral-900 group-hover:text-neutral-600 transition-colors text-center">
+              <h1 className="text-section-title font-medium group-hover:opacity-80 transition-opacity text-center" style={{ color: 'inherit' }}>
                 {post.title}
               </h1>
             </Link>
 
-            <p className="text-body-lg text-neutral-600 max-w-hero-excerpt text-center">
+            <p className="text-body-lg max-w-hero-excerpt text-center opacity-90" style={{ color: 'inherit' }}>
               {post.excerpt}
             </p>
           </div>
@@ -87,9 +122,9 @@ export function Hero({ post }: HeroProps) {
                 className="rounded-full"
               />
             ) : (
-              <div className="w-6 h-6 bg-neutral-200 rounded-full" />
+              <div className="w-6 h-6 bg-current opacity-20 rounded-full" />
             )}
-            <p className="text-body-sm text-neutral-700">
+            <p className="text-body-sm opacity-90" style={{ color: 'inherit' }}>
               By {authorName}
             </p>
           </div>

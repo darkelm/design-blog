@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { AnimatedTitle } from './AnimatedTitle'
 import type { Post } from '@/lib/types'
 import { formatDate, formatReadingTime, getPrimaryTagName, getPrimaryAuthorName } from '@/lib/utils'
 
@@ -57,11 +58,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
         </Link>
         <div className="flex flex-col gap-6">
           {/* Name & Role / Title */}
-          <Link href={`/post/${post.slug}`}>
-            <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+          <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <AnimatedTitle href={`/post/${post.slug}`} groupHover>
               {post.title}
-            </h3>
-          </Link>
+            </AnimatedTitle>
+          </h3>
           <p className="text-body-sm text-neutral-600">
             {post.excerpt}
           </p>
@@ -99,11 +100,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
 
           {/* Title & Body */}
           <div className="flex flex-col gap-6">
-            <Link href={`/post/${post.slug}`}>
-              <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+              <AnimatedTitle href={`/post/${post.slug}`} groupHover>
                 {post.title}
-              </h3>
-            </Link>
+              </AnimatedTitle>
+            </h3>
             <p className="text-body-lg text-neutral-600">
               {post.excerpt}
             </p>
@@ -192,11 +193,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
 
           {/* Title & Body */}
           <div className="flex flex-col gap-8">
-            <Link href={`/post/${post.slug}`}>
-              <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+              <AnimatedTitle href={`/post/${post.slug}`} groupHover>
                 {post.title}
-              </h3>
-            </Link>
+              </AnimatedTitle>
+            </h3>
             <p className="text-body-lg text-neutral-600">
               {post.excerpt}
             </p>
@@ -268,11 +269,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
 
         {/* Title & Body */}
         <div className="flex flex-col gap-6">
-          <Link href={`/post/${post.slug}`}>
-            <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+          <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <AnimatedTitle href={`/post/${post.slug}`} groupHover>
               {post.title}
-            </h3>
-          </Link>
+            </AnimatedTitle>
+          </h3>
           <p className="text-body-sm text-neutral-600 line-clamp-2">
             {post.excerpt}
           </p>

@@ -177,6 +177,104 @@ export function useScrollReveal(
   return ref
 }
 
+/**
+ * Hook for animating color fade-in on scroll
+ * Returns a ref to attach to the element
+ */
+export function useColorFade(options: ColorFadeOptions = {}) {
+  const ref = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (!ref.current) return
+
+    const timeline = animateColorFade(ref.current, options)
+
+    return () => {
+      // Cleanup: kill timeline and ScrollTrigger
+      if (timeline) {
+        timeline.kill()
+      }
+      if (ref.current) {
+        ScrollTrigger.getAll().forEach(trigger => {
+          if (trigger.vars.trigger === ref.current) {
+            trigger.kill()
+          }
+        })
+      }
+    }
+  }, [options.backgroundColor, options.textColor])
+
+  return ref
+}
+
+// ============================================
+// Color Fade Animations
+// ============================================
+
+export interface ColorFadeOptions {
+  backgroundColor?: string
+  textColor?: string
+  duration?: number
+  start?: string
+  ease?: string
+}
+
+/**
+ * Animate background and text color fade-in on scroll
+ * Optimized for rapid, smooth color transitions
+ * 
+ * Uses GSAP's color animation which handles hex/RGB/RGBA automatically
+ */
+export function animateColorFade(
+  element: HTMLElement | null,
+  options: ColorFadeOptions = {}
+) {
+  if (!element) return null
+
+  const {
+    backgroundColor,
+    textColor,
+    duration = 0.6,
+    start = 'top 90%',
+    ease = 'power2.out',
+  } = options
+
+  // If no colors provided, don't animate
+  if (!backgroundColor && !textColor) return null
+
+  // Create animation timeline with ScrollTrigger
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: element,
+      start,
+      toggleActions: 'play none none reverse',
+    },
+  })
+
+  // Animate background color from transparent to target
+  if (backgroundColor) {
+    gsap.set(element, { backgroundColor: 'rgba(255, 255, 255, 0)' })
+    tl.to(element, {
+      backgroundColor,
+      duration,
+      ease,
+    }, 0) // Start immediately
+  }
+
+  // Animate text color from transparent to target
+  if (textColor) {
+    // Start with transparent (will inherit from parent or be invisible)
+    gsap.set(element, { color: 'rgba(0, 0, 0, 0)' })
+    tl.to(element, {
+      color: textColor,
+      duration,
+      ease,
+    }, 0) // Start immediately (same time as background)
+  }
+
+  return tl
+}
+
 // ============================================
 // Timeline Animations
 // ============================================

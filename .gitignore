@@ -33,3 +33,11 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# MCP Server
+mcp-server/**/node_modules/
+mcp-server/**/.env
+mcp-server/**/dist/
+
+# Color Cache (generated, regenerates when content changes)
+lib/colorCache.json
