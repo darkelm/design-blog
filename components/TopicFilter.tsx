@@ -25,10 +25,10 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
         <Link
           href="/"
           className={`
-            px-4 py-2 rounded-full text-body-sm font-medium transition-colors
+            border px-2 py-2 rounded-sm text-body-sm transition-colors
             ${isHome && !activeTag
-              ? 'bg-neutral-900 text-white'
-              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+              ? 'border-neutral-900 bg-neutral-900 text-white'
+              : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-50'
             }
           `}
         >
@@ -39,10 +39,10 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
             key={tag.slug}
             href={`/tag/${tag.slug}`}
             className={`
-              px-4 py-2 rounded-full text-body-sm font-medium transition-colors
+              border px-2 py-2 rounded-sm text-body-sm transition-colors
               ${activeTag === tag.slug
-                ? 'bg-neutral-900 text-white'
-                : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                ? 'border-neutral-900 bg-neutral-900 text-white'
+                : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-50'
               }
             `}
           >

@@ -3,7 +3,7 @@ import { ArticleCard } from './ArticleCard'
 
 interface ArticleGridProps {
   posts: Post[]
-  variant?: 'default' | 'featured' | 'horizontal'
+  variant?: 'default' | 'featured' | 'horizontal' | 'spotlight'
   columns?: 1 | 2 | 3
   emptyMessage?: string
 }
@@ -26,7 +26,9 @@ export function ArticleGrid({
   const gridCols = variant === 'featured' 
     ? 'grid-cols-1 lg:grid-cols-2'
     : variant === 'horizontal'
-    ? 'flex flex-col gap-8'
+    ? 'flex flex-col gap-16'
+    : variant === 'spotlight'
+    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
     : columns === 3
     ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
     : columns === 2
@@ -43,7 +45,7 @@ export function ArticleGrid({
         <ArticleCard 
           key={post.id} 
           post={post} 
-          variant={variant === 'horizontal' ? 'horizontal' : variant}
+          variant={variant === 'horizontal' ? 'horizontal' : variant === 'spotlight' ? 'spotlight' : variant}
           index={index} 
         />
       ))}

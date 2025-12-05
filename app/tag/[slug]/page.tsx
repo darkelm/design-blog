@@ -1,42 +1,82 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getTagBySlug, getPostsByTag, getTags } from '@/lib/ghost'
+import { getMockTagBySlug, getMockPostsByTag, getMockTags } from '@/lib/mockData'
 import { ArticleCard, TopicFilter } from '@/components'
 import type { Post, Tag } from '@/lib/types'
+
+// Set to true to use mock data for development
+// Change to false to use real Ghost data
+const USE_MOCK_DATA = true // Set to false to use real Ghost data
+
+// Force dynamic rendering in development to avoid 404s
+export const dynamic = 'force-dynamic'
 
 interface TagPageProps {
   params: { slug: string }
 }
 
 export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
-  try {
-    const tag = await getTagBySlug(params.slug) as Tag
-    return {
-      title: tag.meta_title || tag.name,
-      description: tag.meta_description || tag.description || `Articles tagged with ${tag.name}`,
+  let tag: Tag | undefined
+  
+  if (USE_MOCK_DATA) {
+    tag = getMockTagBySlug(params.slug)
+  } else {
+    try {
+      tag = await getTagBySlug(params.slug) as Tag
+    } catch {
+      tag = undefined
     }
-  } catch {
+  }
+  
+  if (!tag) {
     return { title: 'Tag Not Found' }
+  }
+  
+  return {
+    title: tag.meta_title || tag.name,
+    description: tag.meta_description || tag.description || `Articles tagged with ${tag.name}`,
   }
 }
 
 export async function generateStaticParams() {
-  const tags = await getTags() as Tag[]
+  let tags: Tag[] = []
+  
+  if (USE_MOCK_DATA) {
+    tags = getMockTags()
+  } else {
+    try {
+      tags = await getTags() as Tag[]
+    } catch {
+      tags = []
+    }
+  }
+  
   return tags.map((tag) => ({ slug: tag.slug }))
 }
 
 export default async function TagPage({ params }: TagPageProps) {
-  let tag: Tag
-  let posts: Post[]
-  let allTags: Tag[]
+  let tag: Tag | undefined
+  let posts: Post[] = []
+  let allTags: Tag[] = []
 
-  try {
-    ;[tag, posts, allTags] = await Promise.all([
-      getTagBySlug(params.slug) as Promise<Tag>,
-      getPostsByTag(params.slug, 20) as Promise<Post[]>,
-      getTags() as Promise<Tag[]>,
-    ])
-  } catch {
+  if (USE_MOCK_DATA) {
+    tag = getMockTagBySlug(params.slug)
+    posts = getMockPostsByTag(params.slug, 20)
+    allTags = getMockTags()
+  } else {
+    try {
+      ;[tag, posts, allTags] = await Promise.all([
+        getTagBySlug(params.slug) as Promise<Tag>,
+        getPostsByTag(params.slug, 20) as Promise<Post[]>,
+        getTags() as Promise<Tag[]>,
+      ])
+    } catch {
+      notFound()
+    }
+  }
+
+  if (!tag) {
     notFound()
   }
 

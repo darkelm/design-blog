@@ -151,6 +151,39 @@ const mockTags: Record<string, Tag> = {
     meta_description: null,
     url: '/tag/interviews',
   },
+  'perspectives': {
+    id: 'persp-1',
+    slug: 'perspectives',
+    name: 'Perspectives',
+    description: null,
+    feature_image: null,
+    visibility: 'public',
+    meta_title: null,
+    meta_description: null,
+    url: '/tag/perspectives',
+  },
+  'spotlight': {
+    id: 'spot-1',
+    slug: 'spotlight',
+    name: 'Spotlight',
+    description: null,
+    feature_image: null,
+    visibility: 'public',
+    meta_title: null,
+    meta_description: null,
+    url: '/tag/spotlight',
+  },
+  'events': {
+    id: 'events-1',
+    slug: 'events',
+    name: 'Events',
+    description: null,
+    feature_image: null,
+    visibility: 'public',
+    meta_title: null,
+    meta_description: null,
+    url: '/tag/events',
+  },
 }
 
 // Helper to create mock posts
@@ -166,6 +199,11 @@ function createMockPost(
   const date = new Date()
   date.setDate(date.getDate() - daysAgo)
   
+  // Use local image for featured post
+  const featureImage = id === 'feat-1' 
+    ? '/images/feature-article-hero.jpg'
+    : `https://images.unsplash.com/photo-${1500000000000 + parseInt(id)}?w=1200&h=675&fit=crop`
+  
   return {
     id,
     uuid: `uuid-${id}`,
@@ -173,7 +211,7 @@ function createMockPost(
     title,
     html: `<p>${excerpt}</p>`,
     excerpt,
-    feature_image: `https://images.unsplash.com/photo-${1500000000000 + parseInt(id)}?w=1200&h=675&fit=crop`,
+    feature_image: featureImage,
     featured,
     published_at: date.toISOString(),
     updated_at: date.toISOString(),
@@ -198,7 +236,7 @@ export const mockPosts: Post[] = [
   // Featured post
   createMockPost(
     'feat-1',
-    'How We Redesigned Our Patient Dashboard from the Ground Up',
+    'Injecting some personality into our agentic future',
     'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
     'case-studies',
     0,
@@ -388,6 +426,55 @@ export const mockPosts: Post[] = [
     false,
     28
   ),
+  
+  // Perspectives
+  createMockPost(
+    'persp-1',
+    'How We Redesigned Our Patient Dashboard from the Ground Up',
+    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
+    'perspectives',
+    0,
+    false,
+    30
+  ),
+  createMockPost(
+    'persp-2',
+    'The Future of Design Tools: What We\'re Excited About',
+    'Exploring emerging technologies and methodologies that are reshaping how we think about design and product development.',
+    'perspectives',
+    1,
+    false,
+    35
+  ),
+  
+  // Spotlight
+  createMockPost(
+    'spot-1',
+    'Sarah Chen • Senior Product Designer',
+    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
+    'spotlight',
+    0,
+    false,
+    40
+  ),
+  createMockPost(
+    'spot-2',
+    'Michael Torres • Design Systems Lead',
+    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
+    'spotlight',
+    1,
+    false,
+    42
+  ),
+  createMockPost(
+    'spot-3',
+    'Priya Sharma • UX Researcher',
+    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
+    'spotlight',
+    2,
+    false,
+    44
+  ),
 ]
 
 // Helper functions to get posts by category
@@ -406,5 +493,17 @@ export function getMockRecentPosts(limit: number = 10, excludeId?: string): Post
     .filter(p => p.id !== excludeId)
     .sort((a, b) => new Date(b.published_at || '').getTime() - new Date(a.published_at || '').getTime())
     .slice(0, limit)
+}
+
+export function getMockTags(): Tag[] {
+  return Object.values(mockTags)
+}
+
+export function getMockTagBySlug(slug: string): Tag | undefined {
+  return mockTags[slug]
+}
+
+export function getMockPostBySlug(slug: string): Post | undefined {
+  return mockPosts.find(post => post.slug === slug)
 }
 

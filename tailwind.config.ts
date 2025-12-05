@@ -14,22 +14,24 @@ const config: Config = {
         display: ['var(--font-display)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Display sizes
-        'display-xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        // Display sizes - Updated to match Figma
+        'display-xl': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],      // 64px - Hero titles
         'display-lg': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
         'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
         'display-sm': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-        // Card titles
-        'card-title-lg': ['1.75rem', { lineHeight: '1.3' }],      // Featured cards
-        'card-title-md': ['1.5rem', { lineHeight: '1.3' }],      // Horizontal list items
-        'card-title': ['1.375rem', { lineHeight: '1.3' }],       // Default cards
-        // Body text
-        'body-lg': ['1.25rem', { lineHeight: '1.6' }],
-        'body-md': ['1rem', { lineHeight: '1.5' }],
-        'body-sm': ['0.9375rem', { lineHeight: '1.5' }],
+        // Section titles - Updated to match Figma
+        'section-title': ['2.5rem', { lineHeight: '1.2' }],      // 40px - Section headings
+        // Card titles - Updated to match Figma
+        'card-title-lg': ['2rem', { lineHeight: '1.3' }],        // 32px - Featured cards (2-column)
+        'card-title-md': ['1.5rem', { lineHeight: '1.3' }],      // 24px - Default cards (3-column)
+        'card-title': ['1.5rem', { lineHeight: '1.3' }],         // 24px - Default cards (matches Figma)
+        // Body text - Updated to match Figma
+        'body-lg': ['1.25rem', { lineHeight: '1.6' }],           // 20px - Large body
+        'body-md': ['1rem', { lineHeight: '1.5' }],              // 16px - Default body
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],          // 14px - Small body (matches Figma)
         // UI text
-        'nav': ['0.9375rem', { lineHeight: '1.5' }],             // Navigation links
-        'label': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.02em' }],
+        'nav': ['1rem', { lineHeight: '1.5' }],                  // 16px - Navigation links
+        'label': ['0.875rem', { lineHeight: '1.4', letterSpacing: '0.02em' }],  // 14px - Labels
         'overline': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
         'footer-heading': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
         'footer-link': ['0.9375rem', { lineHeight: '1.5' }],
@@ -68,6 +70,7 @@ const config: Config = {
           light: '#ffffff',      // White sections
           dark: '#fafafa',       // Light gray sections (neutral-50)
           border: '#e5e5e5',      // Section borders (neutral-200)
+          'header-border': '#829dce', // Header border color (matches Figma)
         },
       },
       // Spacing & Layout
@@ -75,19 +78,27 @@ const config: Config = {
         '18': '4.5rem',
         '22': '5.5rem',
         '30': '7.5rem',
-        // Semantic spacing tokens
-        'section-x': '4rem',      // Horizontal section padding (px-16)
-        'section-y': '4rem',      // Vertical section padding (py-16)
-        'nav-x': '4rem',          // Navigation horizontal padding
-        'card-gap': '2.5rem',     // Gap between cards (gap-10)
-        'content-gap': '3rem',     // Gap in content areas (gap-12)
+        // Semantic spacing tokens - Updated to match Figma
+        'section-x': '4rem',      // Horizontal section padding (64px)
+        'section-y': '3rem',      // Vertical section padding (48px) - Updated from 64px
+        'nav-x': '4rem',          // Navigation horizontal padding (64px)
+        'card-gap': '2.5rem',     // Gap between cards (40px)
+        'content-gap': '3rem',     // Gap in content areas (48px)
+        'section-header-gap': '2.875rem', // Gap between section header and content (46px)
+        // Image heights - Specific Figma dimensions
+        'hero-image-h': '542px',   // Hero image height
+        'card-image-h-default': '213px',  // Default 3-column card image height
+        'card-image-h-featured': '309px', // Featured 2-column card image height
+        'card-image-h-horizontal': '524px', // Horizontal card image height
+        'card-image-h-spotlight': '526px',  // Spotlight card image height
       },
       maxWidth: {
         'content': '1400px',
         'article': '720px',
         'newsletter': '600px',     // Newsletter max width
         'newsletter-form': '440px', // Newsletter form width
-        'hero-excerpt': '540px',   // Hero excerpt max width
+        'hero-excerpt': '523px',   // Hero excerpt max width (matches Figma)
+        'hero-content': '635px',    // Hero content container width (matches Figma)
         'footer-desc': '300px',    // Footer description max width
       },
       // Animation
