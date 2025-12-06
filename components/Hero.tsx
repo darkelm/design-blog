@@ -82,7 +82,7 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
       <SectionContainer>
       {/* Section Title */}
       <div className="flex items-center justify-center mb-12">
-        <h2 className="text-display-xl font-extrabold text-center" style={{ color: 'inherit' }}>
+        <h2 className="text-overline font-sans font-semibold uppercase tracking-[0.1em] text-center" style={{ color: 'inherit' }}>
           Feature
         </h2>
       </div>
@@ -122,19 +122,19 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
           className="flex flex-col gap-6 items-center max-w-hero-content"
         >
           {/* Date */}
-          <p className="text-body-sm text-center opacity-80" style={{ color: 'inherit' }}>
+          <p className="text-label font-sans font-normal text-center opacity-80" style={{ color: 'inherit' }}>
             {formatDate(post.published_at)}
           </p>
 
           {/* Title & Body */}
           <div className="flex flex-col gap-6 items-center">
             <Link href={`/post/${post.slug}`} className="group">
-              <h1 className="text-section-title font-medium group-hover:opacity-80 transition-opacity text-center" style={{ color: 'inherit' }}>
+              <h1 className="text-display-xl font-sans font-semibold group-hover:opacity-80 transition-opacity text-center" style={{ color: 'inherit' }}>
                 {post.title}
               </h1>
             </Link>
 
-            <p className="text-body-md max-w-hero-excerpt text-center opacity-90" style={{ color: 'inherit' }}>
+            <p className="text-body-lg font-serif max-w-hero-excerpt text-center opacity-90" style={{ color: 'inherit' }}>
               {post.excerpt}
             </p>
           </div>
@@ -152,7 +152,7 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
             ) : (
               <div className="w-6 h-6 bg-current opacity-20 rounded-full" />
             )}
-            <p className="text-body-sm opacity-90" style={{ color: 'inherit' }}>
+            <p className="text-label font-sans font-medium opacity-90" style={{ color: 'inherit' }}>
               By {authorName}
             </p>
           </div>

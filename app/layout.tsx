@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Inter } from 'next/font/google'
+import { Sora, Source_Serif_4, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
@@ -10,11 +10,26 @@ import { HeaderColorProvider } from '@/components/HeaderColorProvider'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { generateOrganizationStructuredData } from '@/lib/structuredData'
 
-// Load fonts - customize these for your brand
-const inter = Inter({
+// Load fonts - Sora (display/headings), Source Serif 4 (body), IBM Plex Mono (code)
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-sora',
   display: 'swap',
+  weight: ['400', '500', '600'],
+})
+
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  display: 'swap',
+  weight: ['400', '500'],
+})
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  weight: ['400', '500'],
 })
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'
@@ -58,7 +73,7 @@ export default function RootLayout({
   const organizationStructuredData = generateOrganizationStructuredData(baseUrl)
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${sora.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}>
       <head>
         {/* Organization Structured Data */}
         <Script

@@ -110,7 +110,7 @@ export function ShareButton({
     return (
       <button
         onClick={handleNativeShare}
-        className={`px-4 py-2 bg-neutral-900 text-white text-body-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors ${className}`}
+        className={`px-4 py-2 bg-neutral-900 text-white text-label font-sans font-medium rounded-lg hover:bg-neutral-800 transition-colors ${className}`}
         aria-label="Share article"
       >
         Share
@@ -123,21 +123,21 @@ export function ShareButton({
     <div className={`flex gap-2 ${className}`}>
       <button
         onClick={handleTwitterShare}
-        className="px-4 py-2 bg-neutral-900 text-white text-body-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors"
+        className="px-4 py-2 bg-neutral-900 text-white text-label font-sans font-medium rounded-lg hover:bg-neutral-800 transition-colors"
         aria-label="Share on Twitter"
       >
         Twitter
       </button>
       <button
         onClick={handleLinkedInShare}
-        className="px-4 py-2 bg-neutral-900 text-white text-body-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors"
+        className="px-4 py-2 bg-neutral-900 text-white text-label font-sans font-medium rounded-lg hover:bg-neutral-800 transition-colors"
         aria-label="Share on LinkedIn"
       >
         LinkedIn
       </button>
       <button
         onClick={handleCopyLink}
-        className="px-4 py-2 bg-neutral-100 text-neutral-900 text-body-sm font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+        className="px-4 py-2 bg-neutral-100 text-neutral-900 text-label font-sans font-medium rounded-lg hover:bg-neutral-200 transition-colors"
         aria-label={copied ? 'Link copied!' : 'Copy link'}
       >
         {copied ? 'Copied!' : 'Copy Link'}

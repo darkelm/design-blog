@@ -50,12 +50,12 @@ export function ArticleCreditsSection({
                 <div className="flex-1">
                   <Link
                     href={`/author/${author.slug}`}
-                    className="text-body-md font-semibold text-neutral-900 hover:text-neutral-600 transition-colors block mb-1"
+                    className="text-[1.125rem] font-sans font-semibold text-neutral-900 hover:text-neutral-600 transition-colors block mb-1"
                   >
                     {author.name}
                   </Link>
                   {author.bio && (
-                    <p className="text-body-md text-neutral-600">
+                    <p className="text-[1rem] font-serif text-neutral-600">
                       {author.bio}
                     </p>
                   )}

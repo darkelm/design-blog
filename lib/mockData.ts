@@ -552,6 +552,15 @@ export function getMockFeaturedPosts(limit: number = 1): Post[] {
   return mockPosts.filter(p => p.featured).slice(0, limit)
 }
 
+/**
+ * Get all mock posts
+ * 
+ * @returns Array of all mock posts
+ */
+export function getMockPosts(): Post[] {
+  return mockPosts
+}
+
 export function getMockPostsByTag(tagSlug: string, limit: number = 10): Post[] {
   return mockPosts
     .filter(p => p.tags?.some(t => t.slug === tagSlug))

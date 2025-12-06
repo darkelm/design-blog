@@ -32,30 +32,30 @@ export function ErrorState({
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-md text-center">
-        <h1 className="text-display-md font-semibold text-neutral-900 mb-4">
+        <h1 className="text-display-md font-sans font-semibold text-neutral-900 mb-4">
           {title}
         </h1>
-        <p className="text-body-md text-neutral-600 mb-8">
+        <p className="text-body-md font-serif text-neutral-600 mb-8">
           {message}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-neutral-900 text-white font-medium rounded-lg hover:bg-neutral-800 transition-colors"
+            className="px-6 py-3 bg-neutral-900 text-white font-sans font-medium rounded-lg hover:bg-neutral-800 transition-colors text-label"
           >
             Try Again
           </button>
           {action ? (
             <Link
               href={action.href}
-              className="px-6 py-3 bg-neutral-100 text-neutral-900 font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+              className="px-6 py-3 bg-neutral-100 text-neutral-900 font-sans font-medium rounded-lg hover:bg-neutral-200 transition-colors text-label"
             >
               {action.label}
             </Link>
           ) : (
             <Link
               href="/"
-              className="px-6 py-3 bg-neutral-100 text-neutral-900 font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+              className="px-6 py-3 bg-neutral-100 text-neutral-900 font-sans font-medium rounded-lg hover:bg-neutral-200 transition-colors text-label"
             >
               Go Home
             </Link>

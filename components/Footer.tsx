@@ -37,16 +37,16 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-3">
               <div className="w-8 h-8 bg-neutral-900 rounded-lg" />
-              <span className="font-semibold text-body-lg text-neutral-900">Company Design</span>
+              <span className="font-sans font-semibold text-[1.125rem] text-neutral-900">Company Design</span>
             </Link>
-            <p className="mt-4 text-footer-link text-neutral-500 max-w-footer-desc">
+            <p className="mt-4 text-footer-link font-serif text-neutral-500 max-w-footer-desc">
               Stories, insights, and perspectives from our design team.
             </p>
           </div>
 
           {/* Content Links */}
           <div>
-            <h4 className="text-footer-heading font-semibold text-neutral-900 uppercase mb-5">
+            <h4 className="text-footer-heading font-sans font-semibold text-neutral-900 uppercase mb-5 tracking-[0.05em]">
               Content
             </h4>
             <ul className="space-y-3">
@@ -54,7 +54,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-footer-link text-neutral-600 hover:text-neutral-900 transition-colors"
+                    className="text-footer-link font-sans text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -65,7 +65,7 @@ export function Footer() {
 
           {/* Topics Links */}
           <div>
-            <h4 className="text-footer-heading font-semibold text-neutral-900 uppercase mb-5">
+            <h4 className="text-footer-heading font-sans font-semibold text-neutral-900 uppercase mb-5 tracking-[0.05em]">
               Topics
             </h4>
             <ul className="space-y-3">
@@ -73,7 +73,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-footer-link text-neutral-600 hover:text-neutral-900 transition-colors"
+                    className="text-footer-link font-sans text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -84,7 +84,7 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-footer-heading font-semibold text-neutral-900 uppercase mb-5">
+            <h4 className="text-footer-heading font-sans font-semibold text-neutral-900 uppercase mb-5 tracking-[0.05em]">
               Company
             </h4>
             <ul className="space-y-3">
@@ -92,7 +92,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-footer-link text-neutral-600 hover:text-neutral-900 transition-colors"
+                    className="text-footer-link font-sans text-neutral-600 hover:text-neutral-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -104,7 +104,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-neutral-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-body-sm text-neutral-500">
+          <p className="text-label font-sans font-normal text-neutral-500">
             © {new Date().getFullYear()} Company Name. All rights reserved.
           </p>
           <div className="flex items-center gap-4">

@@ -26,7 +26,7 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
         <Link
           href="/"
           className={`
-            border px-2 py-2 rounded-sm text-body-sm transition-colors
+            border px-2 py-2 rounded-sm text-tag font-sans font-medium uppercase tracking-[0.05em] transition-colors
             ${isHome && !activeTag
               ? 'border-neutral-900 bg-neutral-900 text-white'
               : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'

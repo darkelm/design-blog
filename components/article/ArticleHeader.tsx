@@ -48,7 +48,7 @@ export function ArticleHeader({
                   <Link
                     key={author.slug}
                     href={`/author/${author.slug}`}
-                    className="text-body-md font-semibold text-neutral-900 hover:text-neutral-600 transition-colors"
+                    className="text-[0.9375rem] font-sans font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
                   >
                     {author.name}
                   </Link>
@@ -58,12 +58,12 @@ export function ArticleHeader({
           )}
 
           {/* Title */}
-          <h1 className="text-display-xl font-semibold text-neutral-900 mb-6">
+          <h1 className="text-display-lg font-sans font-semibold text-neutral-900 mb-6">
             {post.title}
           </h1>
 
           {/* Date */}
-          <p className="text-body-sm text-neutral-500 mb-8">
+          <p className="text-[0.9375rem] font-sans font-normal text-neutral-500 mb-8">
             {formatDate(post.published_at, 'MMMM yyyy')}
           </p>
 
@@ -78,7 +78,7 @@ export function ArticleHeader({
 
           {/* Excerpt (optional) */}
           {showExcerpt && post.excerpt && (
-            <p className="text-body-md text-neutral-600 mb-8">
+            <p className="text-[1.375rem] font-serif italic text-neutral-600 mb-8">
               {post.excerpt}
             </p>
           )}

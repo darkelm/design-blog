@@ -8,33 +8,41 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Typography Scale
+      // Typography Scale - Sora + Source Serif 4 + IBM Plex Mono
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-sora)', 'system-ui', 'sans-serif'],      // Sora for display/headings
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],            // Source Serif 4 for body
+        mono: ['var(--font-mono)', 'Menlo', 'monospace'],            // IBM Plex Mono for code
+        display: ['var(--font-sora)', 'system-ui', 'sans-serif'],    // Alias for Sora
       },
       fontSize: {
-        // Display sizes - Updated to match Figma
-        'display-xl': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],      // 64px - Hero titles
-        'display-lg': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
-        'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
-        'display-sm': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-        // Section titles - Updated to match Figma
-        'section-title': ['2.5rem', { lineHeight: '1.2' }],      // 40px - Section headings
-        // Card titles - Updated to match Figma
-        'card-title-lg': ['2rem', { lineHeight: '1.3' }],        // 32px - Featured cards (2-column)
-        'card-title-md': ['1.5rem', { lineHeight: '1.3' }],      // 24px - Default cards (3-column)
-        'card-title': ['1.5rem', { lineHeight: '1.3' }],         // 24px - Default cards (matches Figma)
-        // Body text - Updated to match Figma
-        'body-lg': ['1.25rem', { lineHeight: '1.6' }],           // 20px - Large body
-        'body-md': ['0.875rem', { lineHeight: '1.5' }],         // 14px - Default body (updated from 16px)
-        'body-sm': ['0.875rem', { lineHeight: '1.5' }],          // 14px - Small body (matches Figma)
-        // UI text
-        'nav': ['1rem', { lineHeight: '1.5' }],                  // 16px - Navigation links
-        'label': ['0.875rem', { lineHeight: '1.4', letterSpacing: '0.02em' }],  // 14px - Labels
-        'overline': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
-        'footer-heading': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
-        'footer-link': ['0.9375rem', { lineHeight: '1.5' }],
+        // Display sizes - Sora, 600 weight
+        'display-xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.01em', fontWeight: '600' }],  // 56px - Homepage hero headline
+        'display-lg': ['2.5rem', { lineHeight: '1.15', letterSpacing: '-0.01em', fontWeight: '600' }],  // 40px - Article page title
+        'display-md': ['2rem', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '600' }],     // 32px - Section headers
+        'display-sm': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],                              // 24px - Card headlines
+        'display-xs': ['1.25rem', { lineHeight: '1.3', fontWeight: '600' }],                            // 20px - Smaller card headlines
+        
+        // Body text - Source Serif 4, 400 weight
+        'body-lg': ['1.25rem', { lineHeight: '1.6', fontWeight: '400' }],      // 20px - Article body copy
+        'body-md': ['1.0625rem', { lineHeight: '1.6', fontWeight: '400' }],   // 17px - Card excerpts, descriptions
+        'body-sm': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400' }],  // 15px - Secondary body text
+        
+        // UI text - Sora
+        'label': ['0.875rem', { lineHeight: '1.4', fontWeight: '500' }],     // 14px - Author names, dates, metadata
+        'tag': ['0.75rem', { lineHeight: '1.3', fontWeight: '500', letterSpacing: '0.05em' }],  // 12px - Tags, categories (uppercase)
+        'overline': ['0.6875rem', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '0.1em' }],    // 11px - Section labels, "Featured" (uppercase)
+        'mono': ['0.9375rem', { lineHeight: '1.6', fontWeight: '400' }],     // 15px - Prompts, code, AI output
+        
+        // Legacy/Compatibility tokens
+        'nav': ['0.9375rem', { lineHeight: '1.5', fontWeight: '500' }],       // 15px - Navigation links
+        'footer-heading': ['0.6875rem', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '0.05em' }],  // 11px - Footer column headers
+        'footer-link': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400' }],  // 15px - Footer links
+      },
+      fontWeight: {
+        normal: '400',
+        medium: '500',
+        semibold: '600',
       },
       // Color System
       colors: {
@@ -67,7 +75,7 @@ const config: Config = {
         },
         // Semantic section colors
         section: {
-          light: '#ffffff',      // White sections
+          light: '#fbfbfb',      // Off-white sections (replaces pure white)
           dark: '#fafafa',       // Light gray sections (neutral-50)
           border: '#e5e5e5',      // Section borders (neutral-200)
           'header-border': '#829dce', // Header border color (matches Figma)
@@ -96,12 +104,16 @@ const config: Config = {
       },
       maxWidth: {
         'content': '1400px',
-        'article': '720px',
+        'article': '720px',        // Article max-width: 680-720px for optimal serif readability
         'newsletter': '600px',     // Newsletter max width
         'newsletter-form': '440px', // Newsletter form width
         'hero-excerpt': '523px',   // Hero excerpt max width (matches Figma)
         'hero-content': '635px',    // Hero content container width (matches Figma)
         'footer-desc': '300px',    // Footer description max width
+      },
+      screens: {
+        'xs': '475px',
+        // Tailwind defaults: sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
       },
       // Animation
       transitionDuration: {

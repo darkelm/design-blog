@@ -11,11 +11,11 @@ export function SectionHeader({ title, subtitle, href, linkText = 'View All' }: 
   return (
     <div className="flex justify-between items-end mb-section-header-gap">
       <div>
-        <h2 className="text-section-title font-extrabold mb-0" style={{ color: 'inherit' }}>
+        <h2 className="text-display-md font-sans font-semibold mb-0" style={{ color: 'inherit' }}>
           {title}
         </h2>
         {subtitle && (
-          <p className="text-section-title font-light mt-0" style={{ color: 'inherit' }}>
+          <p className="text-display-md font-sans font-light mt-0" style={{ color: 'inherit' }}>
             {subtitle}
           </p>
         )}
@@ -23,7 +23,7 @@ export function SectionHeader({ title, subtitle, href, linkText = 'View All' }: 
       {href && (
         <Link
           href={href}
-          className="text-body-sm font-semibold hover:opacity-70 transition-opacity flex items-center gap-1"
+          className="text-label font-sans font-medium hover:opacity-70 transition-opacity flex items-center gap-1"
           style={{ color: 'inherit' }}
         >
           <span>{linkText}</span>

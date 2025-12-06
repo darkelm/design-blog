@@ -36,3 +36,6 @@ export const GHOST_CONFIG = {
   REVALIDATE_TIME: 60, // ISR revalidation time (s)
 } as const
 
+// Mock Data Configuration
+export const USE_MOCK_DATA = process.env.USE_MOCK_DATA === 'true' || !process.env.GHOST_URL || process.env.GHOST_URL.includes('your-ghost-site')
+

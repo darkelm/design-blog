@@ -132,6 +132,44 @@ export async function getPosts(options?: {
   }
 }
 
+/**
+ * Search posts using Ghost's filter API
+ * Searches in title, excerpt, and tags
+ * 
+ * @param query - Search query string
+ * @param limit - Maximum number of results (default: 20)
+ * @returns Array of matching posts
+ */
+export async function searchPosts(query: string, limit = 20): Promise<Post[]> {
+  if (!query || query.trim().length === 0) {
+    return []
+  }
+
+  try {
+    // Ghost filter syntax: search in title, excerpt, and tags
+    // Using ~ for contains matching (case-insensitive)
+    const searchTerm = query.trim()
+    const filter = `title:~${searchTerm}+excerpt:~${searchTerm}+tags.name:~${searchTerm}`
+    
+    const response = await api.posts.browse({
+      limit,
+      filter,
+      include: ['tags', 'authors'],
+    })
+    
+    return normalizePostsResponse(response)
+  } catch (error) {
+    if (error instanceof Error && 'statusCode' in error) {
+      throw new GhostAPIError(
+        `Failed to search posts: ${error.message}`,
+        error.statusCode as number,
+        error
+      )
+    }
+    throw new ContentFetchError('Failed to search posts', error)
+  }
+}
+
 export async function getFeaturedPosts(limit = 1): Promise<Post[]> {
   try {
     const response = await api.posts.browse({

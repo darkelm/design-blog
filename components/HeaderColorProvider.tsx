@@ -46,7 +46,7 @@ interface HeaderColorProviderProps {
  */
 export function HeaderColorProvider({ 
   children, 
-  defaultColors = { backgroundColor: '#ffffff', textColor: '#171717' } 
+  defaultColors = { backgroundColor: '#fbfbfb', textColor: '#171717' } 
 }: HeaderColorProviderProps) {
   const [sectionColors, setSectionColors] = useState<Map<string, SectionColor>>(new Map())
 

@@ -60,12 +60,12 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
         </Link>
         <div className="flex flex-col gap-6">
           {/* Name & Role / Title */}
-          <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+          <h3 className="text-display-sm font-sans font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
             <AnimatedTitle href={`/post/${post.slug}`} groupHover>
               {post.title}
             </AnimatedTitle>
           </h3>
-          <p className="text-body-sm text-neutral-600">
+          <p className="text-body-md font-serif text-neutral-600">
             {post.excerpt}
           </p>
         </div>
@@ -95,18 +95,18 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
           </div>
 
           {/* Date */}
-          <p className="text-body-sm text-neutral-700">
+          <p className="text-label font-sans font-normal text-neutral-700">
             {formatDate(post.published_at, 'MMMM d, yyyy')}
           </p>
 
           {/* Title & Body */}
           <div className="flex flex-col gap-6">
-            <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <h3 className="text-display-md font-sans font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
               <AnimatedTitle href={`/post/${post.slug}`} groupHover>
                 {post.title}
               </AnimatedTitle>
             </h3>
-            <p className="text-body-md text-neutral-600">
+            <p className="text-body-md font-serif text-neutral-600">
               {post.excerpt}
             </p>
           </div>
@@ -124,7 +124,7 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
             ) : (
               <div className="w-6 h-6 bg-neutral-300 rounded-full" />
             )}
-            <p className="text-body-sm text-neutral-700">
+            <p className="text-label font-sans font-normal text-neutral-700">
               By {authorName}
             </p>
           </div>
@@ -187,18 +187,18 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
           </div>
 
           {/* Date */}
-          <p className="text-body-sm text-neutral-700">
+          <p className="text-label font-sans font-normal text-neutral-700">
             {formatDate(post.published_at, 'MMMM d, yyyy')}
           </p>
 
           {/* Title & Body */}
           <div className="flex flex-col gap-8">
-            <h3 className="text-card-title-lg font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+            <h3 className="text-display-md font-sans font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
               <AnimatedTitle href={`/post/${post.slug}`} groupHover>
                 {post.title}
               </AnimatedTitle>
             </h3>
-            <p className="text-body-md text-neutral-600">
+            <p className="text-body-md font-serif text-neutral-600">
               {post.excerpt}
             </p>
           </div>
@@ -216,7 +216,7 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
             ) : (
               <div className="w-6 h-6 bg-neutral-300 rounded-full" />
             )}
-            <p className="text-body-sm text-neutral-700">
+            <p className="text-label font-sans font-normal text-neutral-700">
               By {authorName}
             </p>
           </div>
@@ -262,13 +262,13 @@ function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleC
         </div>
 
         {/* Date */}
-        <p className="text-body-sm text-neutral-700">
+        <p className="text-label font-sans font-normal text-neutral-700">
           {formatDate(post.published_at, 'MMMM, yyyy')}
         </p>
 
         {/* Title & Body */}
         <div className="flex flex-col gap-6">
-          <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
+          <h3 className="text-display-sm font-sans font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors">
             <AnimatedTitle href={`/post/${post.slug}`} groupHover>
               {post.title}
             </AnimatedTitle>

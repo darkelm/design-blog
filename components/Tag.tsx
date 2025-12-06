@@ -24,7 +24,7 @@ interface TagProps {
 }
 
 function TagComponent({ tag, href, active = false, className = '' }: TagProps) {
-  const baseClasses = 'border px-2 py-2 rounded-sm text-body-sm transition-colors cursor-pointer'
+  const baseClasses = 'border px-2 py-2 rounded-sm text-tag font-sans font-medium uppercase tracking-[0.05em] transition-colors cursor-pointer'
   const inactiveClasses = 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
   const activeClasses = 'border-neutral-900 bg-neutral-900 text-white'
   

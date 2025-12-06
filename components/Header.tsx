@@ -9,6 +9,7 @@ import { useScrollDirection } from '@/lib/useScrollDirection'
 import { useHeaderColorContext } from './HeaderColorProvider'
 import { animateHeaderColor } from '@/lib/animations'
 import { AnimatedNavLink } from './AnimatedNavLink'
+import { SearchModal } from './SearchModal'
 import { HEADER_CONFIG, ANIMATION_CONFIG } from '@/lib/constants'
 import { logger } from '@/lib/utils/logger'
 
@@ -39,6 +40,7 @@ const navigation = [
  */
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const { isVisible } = useScrollDirection(10, true)
   const headerRef = useRef<HTMLElement>(null)
   const { sectionColors, defaultColors } = useHeaderColorContext()
@@ -371,7 +373,7 @@ export function Header() {
             className="flex items-center justify-center"
             aria-label="Home"
           >
-            <span className="text-2xl font-bold" style={{ color: 'inherit' }}>
+            <span className="text-[1.125rem] font-sans font-semibold" style={{ color: 'inherit' }}>
               D&DP&AI
             </span>
           </Link>
@@ -383,7 +385,7 @@ export function Header() {
                 <li key={item.name}>
                   <AnimatedNavLink
                     href={item.href}
-                    className="text-body-md font-normal whitespace-nowrap"
+                    className="text-label font-sans font-medium whitespace-nowrap"
                   >
                     {item.name}
                   </AnimatedNavLink>
@@ -393,6 +395,7 @@ export function Header() {
             
             {/* Search Icon */}
             <button 
+              onClick={() => setSearchOpen(true)}
               className="ml-8 p-0 transition-opacity hover:opacity-70 focus:opacity-70 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 rounded flex-shrink-0 w-6 h-6"
               aria-label="Search"
               style={{ color: 'inherit' }}
@@ -435,7 +438,7 @@ export function Header() {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className="block px-4 py-3 text-body-md transition-colors hover:opacity-70 focus:opacity-70 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 rounded"
+                      className="block px-4 py-3 text-label font-sans font-medium transition-colors hover:opacity-70 focus:opacity-70 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 rounded"
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ color: 'inherit' }}
                     >
@@ -445,7 +448,7 @@ export function Header() {
                 ))}
                 <li className="pt-2 px-4">
                   <button
-                    className="w-full py-3 text-body-md transition-colors hover:opacity-70 focus:opacity-70 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 rounded flex items-center justify-center gap-2"
+                    className="w-full py-3 text-label font-sans font-medium transition-colors hover:opacity-70 focus:opacity-70 focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 rounded flex items-center justify-center gap-2"
                     onClick={() => setMobileMenuOpen(false)}
                     aria-label="Search"
                     style={{ color: 'inherit' }}
@@ -461,6 +464,9 @@ export function Header() {
           )}
         </AnimatePresence>
       </nav>
+      
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }

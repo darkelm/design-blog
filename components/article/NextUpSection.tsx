@@ -58,15 +58,15 @@ export function NextUpSection({
                       </div>
                     )}
                     <div className="flex-1">
-                      <h3 className="text-card-title-md font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
+                      <h3 className="text-display-sm font-sans font-semibold text-neutral-900 group-hover:text-neutral-600 transition-colors mb-2">
                         {post.title}
                       </h3>
                       {post.excerpt && (
-                        <p className="text-body-md text-neutral-600 mb-2 line-clamp-2">
+                        <p className="text-body-md font-serif text-neutral-600 mb-2 line-clamp-2">
                           {post.excerpt}
                         </p>
                       )}
-                      <div className="flex items-center gap-2 text-body-sm text-neutral-500">
+                      <div className="flex items-center gap-2 text-label font-sans font-normal text-neutral-500">
                         {author && (
                           <>
                             <span>{author.name}</span>

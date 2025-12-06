@@ -29,10 +29,10 @@ export function Newsletter() {
           transition={{ duration: 0.6 }}
           className="max-w-newsletter mx-auto text-center"
         >
-          <h2 className="text-display-md font-semibold text-neutral-900 mb-4">
+          <h2 className="text-display-md font-sans font-semibold text-neutral-900 mb-4">
             Stay in the loop
           </h2>
-          <p className="text-body-md text-neutral-600 mb-8">
+          <p className="text-body-md font-serif text-neutral-600 mb-8">
             Get the latest articles, case studies, and event invites delivered to your inbox.
           </p>
 
@@ -40,7 +40,7 @@ export function Newsletter() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-white rounded-xl p-6 shadow-sm"
+              className="bg-section-light rounded-xl p-6 shadow-sm"
             >
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +48,7 @@ export function Newsletter() {
                 </svg>
               </div>
               <p className="text-neutral-900 font-medium">You're subscribed!</p>
-              <p className="text-body-sm text-neutral-500 mt-1">Check your inbox for a confirmation email.</p>
+              <p className="text-label font-serif text-neutral-500 mt-1">Check your inbox for a confirmation email.</p>
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-newsletter-form mx-auto">
@@ -58,12 +58,12 @@ export function Newsletter() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="flex-1 px-4 py-3.5 bg-white border border-neutral-300 rounded-md text-body-md placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-shadow"
+                className="flex-1 px-4 py-3.5 bg-section-light border border-neutral-300 rounded-md text-body-md font-serif placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-shadow"
               />
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-6 py-3.5 bg-neutral-900 text-white font-medium rounded-md hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-body-md"
+                className="px-6 py-3.5 bg-neutral-900 text-white font-sans font-semibold rounded-md hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-label"
               >
                 {status === 'loading' ? (
                   <span className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function Newsletter() {
             </form>
           )}
 
-          <p className="text-body-sm text-neutral-500 mt-4">
+          <p className="text-label font-serif text-neutral-500 mt-4">
             No spam. Unsubscribe anytime.
           </p>
         </motion.div>
