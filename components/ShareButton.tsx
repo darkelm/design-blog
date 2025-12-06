@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { event } from '@/lib/analytics'
+import { logger } from '@/lib/utils/logger'
 
 /**
  * ShareButton Component
@@ -13,6 +14,9 @@ import { event } from '@/lib/analytics'
  * - Share logic: This component
  * - UI: Design tokens
  * - Analytics: Can be extended
+ * 
+ * Note: Uses useEffect to check for native share API to prevent hydration errors.
+ * Server always renders fallback, client updates after hydration.
  */
 interface ShareButtonProps {
   url: string
@@ -28,6 +32,16 @@ export function ShareButton({
   className = '' 
 }: ShareButtonProps) {
   const [copied, setCopied] = useState(false)
+  const [hasNativeShare, setHasNativeShare] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Check for native share API only on client after mount
+  useEffect(() => {
+    setIsMounted(true)
+    if (typeof navigator !== 'undefined' && 'share' in navigator && typeof navigator.share === 'function') {
+      setHasNativeShare(true)
+    }
+  }, [])
 
   const handleNativeShare = async () => {
     if (typeof navigator !== 'undefined' && 'share' in navigator && typeof navigator.share === 'function') {
@@ -46,7 +60,7 @@ export function ShareButton({
       } catch (error) {
         // User cancelled or error occurred
         if (error instanceof Error && error.name !== 'AbortError') {
-          console.error('Error sharing:', error)
+          logger.error('Error sharing:', error)
         }
       }
     }
@@ -86,12 +100,13 @@ export function ShareButton({
         label: 'article_link',
       })
     } catch (error) {
-      console.error('Failed to copy link:', error)
+      logger.error('Failed to copy link:', error)
     }
   }
 
-  // Use native share if available
-  if (typeof navigator !== 'undefined' && 'share' in navigator && typeof navigator.share === 'function') {
+  // Render consistent initial state (fallback) to prevent hydration errors
+  // After mount, check for native share and update if available
+  if (isMounted && hasNativeShare) {
     return (
       <button
         onClick={handleNativeShare}
@@ -103,7 +118,7 @@ export function ShareButton({
     )
   }
 
-  // Fallback to manual share buttons
+  // Fallback to manual share buttons (rendered on server and client without native share)
   return (
     <div className={`flex gap-2 ${className}`}>
       <button

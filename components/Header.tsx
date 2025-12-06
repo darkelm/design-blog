@@ -9,7 +9,8 @@ import { useScrollDirection } from '@/lib/useScrollDirection'
 import { useHeaderColorContext } from './HeaderColorProvider'
 import { animateHeaderColor } from '@/lib/animations'
 import { AnimatedNavLink } from './AnimatedNavLink'
-import { HEADER_CONFIG } from '@/lib/constants'
+import { HEADER_CONFIG, ANIMATION_CONFIG } from '@/lib/constants'
+import { logger } from '@/lib/utils/logger'
 
 const navigation = [
   { name: 'Latest', href: '/' },
@@ -51,8 +52,8 @@ export function Header() {
 
     gsap.to(headerRef.current, {
       y: isVisible ? 0 : -100,
-      duration: 0.3,
-      ease: 'power2.out',
+      duration: ANIMATION_CONFIG.HEADER_SLIDE_DURATION,
+      ease: ANIMATION_CONFIG.HEADER_SLIDE_EASE,
     })
   }, [isVisible])
 
@@ -80,9 +81,7 @@ export function Header() {
         // Find section element by data attribute
         const sectionElement = document.querySelector(`[data-section-id="${sectionId}"]`) as HTMLElement
         if (!sectionElement) {
-          if (process.env.NODE_ENV === 'development') {
-            console.warn(`Section element not found for: ${sectionId}`)
-          }
+          logger.warn(`Section element not found for: ${sectionId}`)
           return
         }
 
@@ -308,9 +307,7 @@ export function Header() {
       })
     } catch (error) {
       // Fallback to polling if Intersection Observer not supported
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Intersection Observer not supported, using polling fallback')
-      }
+      logger.warn('Intersection Observer not supported, using polling fallback')
       const checkInterval = setInterval(() => {
         updateInitialColors()
       }, HEADER_CONFIG.POLLING_INTERVAL)

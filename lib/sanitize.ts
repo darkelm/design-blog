@@ -1,4 +1,5 @@
 import DOMPurify from 'isomorphic-dompurify'
+import { logger } from './utils/logger'
 
 /**
  * HTML Sanitization Utility
@@ -56,10 +57,7 @@ export function sanitizeHTML(html: string): string {
     return DOMPurify.sanitize(html, DOMPurifyConfig)
   } catch (error) {
     // If sanitization fails, return empty string
-    // Log error in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('HTML sanitization failed:', error)
-    }
+    logger.error('HTML sanitization failed:', error)
     return ''
   }
 }
@@ -80,9 +78,7 @@ export function sanitizeHTMLTrusted(html: string): string {
     // TypeScript doesn't know about TrustedHTML, so we cast
     return result as unknown as string
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('HTML sanitization failed:', error)
-    }
+    logger.error('HTML sanitization failed:', error)
     return ''
   }
 }

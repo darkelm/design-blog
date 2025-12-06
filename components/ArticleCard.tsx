@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { AnimatedTitle } from './AnimatedTitle'
 import { Tag } from './Tag'
@@ -14,7 +15,7 @@ interface ArticleCardProps {
   index?: number
 }
 
-export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCardProps) {
+function ArticleCardComponent({ post, variant = 'default', index = 0 }: ArticleCardProps) {
   const tagName = getPrimaryTagName(post.tags)
   const authorName = getPrimaryAuthorName(post.authors)
   const authorImage = post.authors?.[0]?.profile_image
@@ -298,3 +299,6 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
     </motion.article>
   )
 }
+
+// Memoize to prevent unnecessary re-renders when parent re-renders
+export const ArticleCard = memo(ArticleCardComponent)

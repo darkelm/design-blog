@@ -21,7 +21,7 @@ interface ArticleContentProps {
 
 export function ArticleContent({ post, className = '' }: ArticleContentProps) {
   return (
-    <div className={`w-full pb-section-y ${className}`}>
+    <div id="article-content" className={`w-full pb-section-y ${className}`}>
       <div className="mx-auto max-w-content px-6 lg:px-section-x">
         <div className="max-w-article mx-auto">
           {post.html ? (

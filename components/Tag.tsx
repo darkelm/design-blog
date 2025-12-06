@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { memo } from 'react'
 import type { Tag as TagType } from '@/lib/types'
 
 /**
@@ -11,6 +12,9 @@ import type { Tag as TagType } from '@/lib/types'
  * - Styling: This component
  * - Behavior: Link vs span based on href prop
  * - State: Active state via className prop
+ * 
+ * Performance:
+ * - Memoized to prevent unnecessary re-renders when rendered in lists
  */
 interface TagProps {
   tag: TagType
@@ -19,7 +23,7 @@ interface TagProps {
   className?: string
 }
 
-export function Tag({ tag, href, active = false, className = '' }: TagProps) {
+function TagComponent({ tag, href, active = false, className = '' }: TagProps) {
   const baseClasses = 'border px-2 py-2 rounded-sm text-body-sm transition-colors cursor-pointer'
   const inactiveClasses = 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
   const activeClasses = 'border-neutral-900 bg-neutral-900 text-white'
@@ -43,4 +47,7 @@ export function Tag({ tag, href, active = false, className = '' }: TagProps) {
     </span>
   )
 }
+
+// Memoize to prevent unnecessary re-renders when rendered in lists
+export const Tag = memo(TagComponent)
 

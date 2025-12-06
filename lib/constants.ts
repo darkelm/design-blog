@@ -23,6 +23,8 @@ export const COLOR_CONFIG = {
 // Animation Configuration
 export const ANIMATION_CONFIG = {
   HEADER_COLOR_DURATION: 0.6, // Header color transition duration (s)
+  HEADER_SLIDE_DURATION: 0.3, // Header slide in/out duration (s)
+  HEADER_SLIDE_EASE: 'power2.out' as const, // Header slide easing function
   FADE_DURATION: 0.8, // Standard fade duration (s)
   STAGGER_DELAY: 0.1, // Delay between staggered items (s)
 } as const

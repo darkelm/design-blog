@@ -236,6 +236,8 @@ function createMockPost(
   let date: Date
   if (id === 'persp-1') {
     date = new Date('2025-04-01')
+  } else if (id === 'persp-2') {
+    date = new Date('2025-05-15') // May 2025
   } else {
     date = new Date()
     date.setDate(date.getDate() - daysAgo)
@@ -277,7 +279,11 @@ function createMockPost(
     excerpt,
     feature_image: featureImage,
     featured,
-    published_at: id === 'persp-1' ? new Date('2025-04-01').toISOString() : date.toISOString(),
+    published_at: id === 'persp-1' 
+      ? new Date('2025-04-01').toISOString() 
+      : id === 'persp-2'
+      ? new Date('2025-05-15').toISOString()
+      : date.toISOString(),
     updated_at: date.toISOString(),
     reading_time: Math.floor(Math.random() * 10) + 3,
     tags: [tag],
@@ -503,12 +509,12 @@ export const mockPosts: Post[] = [
   ),
   createMockPost(
     'persp-2',
-    'How We Redesigned Our Patient Dashboard from the Ground Up',
-    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
+    'Designing Matter: How Generative AI Is Reshaping Industrial Design',
+    'When you pick up a thoughtfully designed object - a chair that fits your body perfectly, a kitchen tool that anticipates your grip - you\'re holding the result of countless hours of sketching, prototyping, testing, and refining. Now, generative AI is entering that process as a collaborator that speaks a new language somewhere between intention and form.',
     'perspectives',
-    0,
+    2,
     false,
-    35
+    15
   ),
   
   // Spotlight

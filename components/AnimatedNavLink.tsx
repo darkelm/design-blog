@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { memo, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link'
 
@@ -19,8 +19,11 @@ interface AnimatedNavLinkProps {
  * - Animation logic: GSAP timeline management
  * - Component logic: React lifecycle and event handling
  * - Styling: Tailwind classes + CSS for underline
+ * 
+ * Performance:
+ * - Memoized to prevent unnecessary re-renders in navigation
  */
-export function AnimatedNavLink({
+function AnimatedNavLinkComponent({
   href,
   children,
   className = '',
@@ -101,4 +104,7 @@ export function AnimatedNavLink({
     </Link>
   )
 }
+
+// Memoize to prevent unnecessary re-renders in navigation
+export const AnimatedNavLink = memo(AnimatedNavLinkComponent)
 
