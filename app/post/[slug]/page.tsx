@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { getPostBySlug, getPosts, getPostsByTag } from '@/lib/ghost'
 import { getMockPostBySlug, getMockPostsByTag, mockPosts } from '@/lib/mockData'
-import { ArticleCard } from '@/components'
-import { formatDate, formatReadingTime } from '@/lib/utils'
+import { getArticleLayout, getLayoutVariantFromPost, type ArticleLayoutVariant } from '@/lib/articleLayouts'
+import { generateArticleStructuredData, generateBreadcrumbStructuredData } from '@/lib/structuredData'
+import { ReadingProgress } from '@/components/ReadingProgress'
 import type { Post } from '@/lib/types'
+import { logger } from '@/lib/utils/logger'
 
 // Set to true to use mock data for development
 // Change to false to use real Ghost data
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     post = getMockPostBySlug(params.slug)
   } else {
     try {
-      post = await getPostBySlug(params.slug) as Post
-    } catch {
+      post = await getPostBySlug(params.slug)
+    } catch (error) {
+      logger.error('Failed to fetch post for metadata:', error)
       post = undefined
     }
   }
@@ -64,8 +66,9 @@ export async function generateStaticParams() {
     posts = mockPosts
   } else {
     try {
-      posts = await getPosts({ limit: 100 }) as Post[]
-    } catch {
+      posts = await getPosts({ limit: 100 })
+    } catch (error) {
+      logger.error('Failed to fetch posts for static params:', error)
       posts = []
     }
   }
@@ -88,13 +91,19 @@ export default async function PostPage({ params }: PostPageProps) {
     }
   } else {
     try {
-      post = await getPostBySlug(params.slug) as Post
+      post = await getPostBySlug(params.slug)
+      if (!post) {
+        notFound()
+      }
       const primaryTag = post.tags?.[0]
       if (primaryTag) {
-        const related = await getPostsByTag(primaryTag.slug, 4) as Post[]
-        relatedPosts = related.filter(p => p.id !== post.id).slice(0, 3)
+        const related = await getPostsByTag(primaryTag.slug, 4)
+        relatedPosts = related.filter(p => p.id !== post!.id).slice(0, 3)
       }
-    } catch {
+    } catch (error) {
+      // NotFoundError will be handled by notFound()
+      // Other errors will be caught and logged
+      logger.error('Failed to fetch post:', error)
       notFound()
     }
   }
@@ -103,147 +112,53 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
-  const primaryTag = post.tags?.[0]
-  const author = post.authors?.[0]
+  const authors = post.authors || []
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com'
+  
+  // Determine layout variant (can be extended to check post metadata, tags, etc.)
+  const layoutVariant: ArticleLayoutVariant = getLayoutVariantFromPost(post)
+  
+  // Get layout components
+  const layoutComponents = getArticleLayout(layoutVariant, {
+    post,
+    authors,
+    relatedPosts,
+  })
+
+  // Generate structured data
+  const articleStructuredData = generateArticleStructuredData(post, authors, baseUrl)
+  const breadcrumbStructuredData = generateBreadcrumbStructuredData(
+    [
+      { label: 'Home', url: '/' },
+      { label: post.title, url: `/post/${post.slug}` },
+    ],
+    baseUrl
+  )
 
   return (
-    <article className="min-h-screen">
-      {/* Article Header - Wireframe Structure */}
-      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-section-y border-b-2 border-neutral-300">
-        <div className="max-w-article mx-auto">
-          {/* Tag - Wireframe Box */}
-          {primaryTag && (
-            <div className="mb-6">
-              <Link
-                href={`/tag/${primaryTag.slug}`}
-                className="inline-block px-3 py-1 border-2 border-neutral-400 text-body-sm text-neutral-700 font-medium"
-              >
-                {primaryTag.name}
-              </Link>
-            </div>
-          )}
+    <>
+      {/* Structured Data for SEO */}
+      <Script
+        id="article-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
+      <Script
+        id="breadcrumb-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
 
-          {/* Title - Wireframe Box */}
-          <div className="mb-6 border-2 border-neutral-300 p-6">
-            <h1 className="text-section-title font-extrabold text-neutral-900">
-              {post.title}
-            </h1>
-          </div>
-
-          {/* Excerpt - Wireframe Box */}
-          <div className="mb-8 border-2 border-neutral-300 p-4">
-            <p className="text-body-lg text-neutral-600">
-              {post.excerpt}
-            </p>
-          </div>
-
-          {/* Author & Meta - Wireframe Box */}
-          <div className="flex items-center gap-4 pb-8 border-b-2 border-neutral-300">
-            <div className="w-12 h-12 border-2 border-neutral-400 bg-neutral-100" />
-            <div className="border-2 border-neutral-300 p-3 flex-1">
-              {author && (
-                <div className="mb-1">
-                  <Link
-                    href={`/author/${author.slug}`}
-                    className="text-body-md font-semibold text-neutral-900 hover:text-neutral-600"
-                  >
-                    {author.name}
-                  </Link>
-                </div>
-              )}
-              <p className="text-body-sm text-neutral-500">
-                {formatDate(post.published_at)} · {formatReadingTime(post.reading_time)}
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Feature Image - Wireframe Box */}
-      {post.feature_image && (
-        <div className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-b-2 border-neutral-300">
-          <div className="max-w-article mx-auto">
-            <div className="w-full aspect-[2/1] border-2 border-neutral-400 bg-neutral-100 flex items-center justify-center">
-              <Image
-                src={post.feature_image}
-                alt={post.title}
-                width={1400}
-                height={700}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Article Content - Wireframe Structure */}
-      <div className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-b-2 border-neutral-300">
-        <div className="max-w-article mx-auto">
-          <div className="border-2 border-neutral-300 p-8">
-            {post.html ? (
-              <div
-                className="prose prose-neutral max-w-none"
-                dangerouslySetInnerHTML={{ __html: post.html }}
-              />
-            ) : (
-              <div className="space-y-4">
-                <div className="h-4 bg-neutral-200 w-full" />
-                <div className="h-4 bg-neutral-200 w-5/6" />
-                <div className="h-4 bg-neutral-200 w-full" />
-                <div className="h-4 bg-neutral-200 w-4/6 mt-8" />
-                <div className="h-4 bg-neutral-200 w-full" />
-                <div className="h-4 bg-neutral-200 w-5/6" />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Author Bio - Wireframe Box */}
-      {author && (
-        <aside className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-b-2 border-neutral-300">
-          <div className="max-w-article mx-auto">
-            <div className="border-2 border-neutral-300 p-6 bg-neutral-50">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 border-2 border-neutral-400 bg-neutral-200 flex-shrink-0" />
-                <div className="flex-1 border-2 border-neutral-300 p-4">
-                  <p className="text-overline text-neutral-500 uppercase font-medium mb-2">
-                    Written by
-                  </p>
-                  <Link
-                    href={`/author/${author.slug}`}
-                    className="text-body-md font-semibold text-neutral-900 hover:text-neutral-600 block mb-2"
-                  >
-                    {author.name}
-                  </Link>
-                  {author.bio && (
-                    <p className="text-body-sm text-neutral-600">
-                      {author.bio}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      )}
-
-      {/* Related Posts - Wireframe Structure */}
-      {relatedPosts.length > 0 && (
-        <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
-          <div className="mb-section-header-gap border-2 border-neutral-300 p-4 inline-block">
-            <h2 className="text-section-title font-extrabold text-neutral-900">
-              Related Articles
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-card-gap">
-            {relatedPosts.map((relatedPost, index) => (
-              <ArticleCard key={relatedPost.id} post={relatedPost} index={index} />
-            ))}
-          </div>
-        </section>
-      )}
-    </article>
+      <article className="min-h-screen">
+        <ReadingProgress />
+        {layoutComponents.map(({ component: Component, props, key }) => (
+          <Component key={key} {...props} />
+        ))}
+      </article>
+    </>
   )
 }

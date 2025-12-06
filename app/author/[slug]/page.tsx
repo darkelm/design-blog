@@ -66,7 +66,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               {author.name}
             </h1>
             {author.bio && (
-              <p className="text-body-lg text-neutral-600 max-w-2xl mb-4">
+              <p className="text-body-md text-neutral-600 max-w-2xl mb-4">
                 {author.bio}
               </p>
             )}
@@ -119,7 +119,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
       {/* Articles */}
       <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-t border-neutral-200">
-        <h2 className="text-xl lg:text-2xl font-semibold text-neutral-900 mb-8">
+        <h2 className="text-display-sm font-semibold text-neutral-900 mb-8">
           Articles by {author.name}
         </h2>
         {posts.length > 0 ? (

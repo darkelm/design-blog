@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import type { Tag } from '@/lib/types'
+import { Tag } from './Tag'
+import type { Tag as TagType } from '@/lib/types'
 
 interface TopicFilterProps {
-  tags: Tag[]
+  tags: TagType[]
   activeTag?: string
 }
 
@@ -28,26 +29,19 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
             border px-2 py-2 rounded-sm text-body-sm transition-colors
             ${isHome && !activeTag
               ? 'border-neutral-900 bg-neutral-900 text-white'
-              : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-50'
+              : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
             }
           `}
         >
           All
         </Link>
         {tags.map((tag) => (
-          <Link
+          <Tag
             key={tag.slug}
+            tag={tag}
             href={`/tag/${tag.slug}`}
-            className={`
-              border px-2 py-2 rounded-sm text-body-sm transition-colors
-              ${activeTag === tag.slug
-                ? 'border-neutral-900 bg-neutral-900 text-white'
-                : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-50'
-              }
-            `}
-          >
-            {tag.name}
-          </Link>
+            active={activeTag === tag.slug}
+          />
         ))}
       </motion.div>
     </div>

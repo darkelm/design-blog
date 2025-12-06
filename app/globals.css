@@ -31,7 +31,7 @@
   }
 
   body {
-    @apply bg-white text-neutral-800;
+    @apply bg-white text-neutral-800 text-body-md;
     font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on;
   }
 
@@ -63,7 +63,7 @@
   }
 
   .prose h3 {
-    @apply text-xl font-semibold text-neutral-900 mt-8 mb-3;
+    @apply text-display-sm font-semibold text-neutral-900 mt-8 mb-3;
   }
 
   .prose p {
@@ -116,7 +116,7 @@
   }
 
   .prose code {
-    @apply bg-neutral-100 text-neutral-800 px-1.5 py-0.5 rounded text-sm;
+    @apply bg-neutral-100 text-neutral-800 px-1.5 py-0.5 rounded text-body-sm;
   }
 
   .prose pre code {

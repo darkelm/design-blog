@@ -27,7 +27,7 @@ const config: Config = {
         'card-title': ['1.5rem', { lineHeight: '1.3' }],         // 24px - Default cards (matches Figma)
         // Body text - Updated to match Figma
         'body-lg': ['1.25rem', { lineHeight: '1.6' }],           // 20px - Large body
-        'body-md': ['1rem', { lineHeight: '1.5' }],              // 16px - Default body
+        'body-md': ['0.875rem', { lineHeight: '1.5' }],         // 14px - Default body (updated from 16px)
         'body-sm': ['0.875rem', { lineHeight: '1.5' }],          // 14px - Small body (matches Figma)
         // UI text
         'nav': ['1rem', { lineHeight: '1.5' }],                  // 16px - Navigation links
@@ -85,6 +85,8 @@ const config: Config = {
         'card-gap': '2.5rem',     // Gap between cards (40px)
         'content-gap': '3rem',     // Gap in content areas (48px)
         'section-header-gap': '2.875rem', // Gap between section header and content (46px)
+        'header-height': '5rem',    // Header height (80px)
+        'icon-size': '1.5rem',     // Standard icon size (24px)
         // Image heights - Specific Figma dimensions
         'hero-image-h': '542px',   // Hero image height
         'card-image-h-default': '213px',  // Default 3-column card image height

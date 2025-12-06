@@ -9,6 +9,7 @@ import { readFile, writeFile, mkdir } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
 import type { ExtractedColors } from './colorExtraction'
+import { logger } from './utils/logger'
 
 export interface SectionColorCache {
   postIds: string[]
@@ -37,7 +38,7 @@ export async function loadColorCache(): Promise<ColorCache> {
     const fileContent = await readFile(CACHE_FILE_PATH, 'utf-8')
     return JSON.parse(fileContent) as ColorCache
   } catch (error) {
-    console.warn('Failed to load color cache:', error)
+    logger.warn('Failed to load color cache:', error)
     return {}
   }
 }
@@ -54,7 +55,7 @@ export async function saveColorCache(cache: ColorCache): Promise<void> {
 
     await writeFile(CACHE_FILE_PATH, JSON.stringify(cache, null, 2), 'utf-8')
   } catch (error) {
-    console.error('Failed to save color cache:', error)
+    logger.error('Failed to save color cache:', error)
   }
 }
 

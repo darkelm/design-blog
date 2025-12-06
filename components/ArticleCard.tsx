@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { AnimatedTitle } from './AnimatedTitle'
+import { Tag } from './Tag'
 import type { Post } from '@/lib/types'
 import { formatDate, formatReadingTime, getPrimaryTagName, getPrimaryAuthorName } from '@/lib/utils'
 
@@ -84,12 +85,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
           {/* Tags */}
           <div className="flex gap-4 flex-wrap">
             {post.tags?.slice(0, 3).map((tag) => (
-              <span
+              <Tag
                 key={tag.slug}
-                className="border border-neutral-800 px-2 py-2 rounded-sm text-body-sm text-neutral-800"
-              >
-                {tag.name}
-              </span>
+                tag={tag}
+                href={`/tag/${tag.slug}`}
+              />
             ))}
           </div>
 
@@ -105,7 +105,7 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
                 {post.title}
               </AnimatedTitle>
             </h3>
-            <p className="text-body-lg text-neutral-600">
+            <p className="text-body-md text-neutral-600">
               {post.excerpt}
             </p>
           </div>
@@ -177,12 +177,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
           {/* Tags */}
           <div className="flex gap-4 flex-wrap">
             {post.tags?.slice(0, 3).map((tag) => (
-              <span
+              <Tag
                 key={tag.slug}
-                className="border border-neutral-800 px-2 py-2 rounded-sm text-body-sm text-neutral-800"
-              >
-                {tag.name}
-              </span>
+                tag={tag}
+                href={`/tag/${tag.slug}`}
+              />
             ))}
           </div>
 
@@ -198,7 +197,7 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
                 {post.title}
               </AnimatedTitle>
             </h3>
-            <p className="text-body-lg text-neutral-600">
+            <p className="text-body-md text-neutral-600">
               {post.excerpt}
             </p>
           </div>
@@ -253,12 +252,11 @@ export function ArticleCard({ post, variant = 'default', index = 0 }: ArticleCar
         {/* Tags */}
         <div className="flex gap-4 flex-wrap">
           {post.tags?.slice(0, 3).map((tag) => (
-            <span
+            <Tag
               key={tag.slug}
-              className="border border-neutral-800 px-2 py-2 rounded-sm text-body-sm text-neutral-800"
-            >
-              {tag.name}
-            </span>
+              tag={tag}
+              href={`/tag/${tag.slug}`}
+            />
           ))}
         </div>
 

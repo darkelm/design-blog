@@ -27,6 +27,9 @@ Image standards and production. Dimensions, formats, compression, alt text, and 
 ### [DECISIONS.md](./DECISIONS.md)
 Design and implementation decision log. Why things are the way they are, and when to revisit.
 
+### [ADDING_MOCK_ARTICLES.md](./ADDING_MOCK_ARTICLES.md)
+Guide for adding new articles to mock data. Step-by-step instructions, examples, and best practices for AI agents and developers.
+
 ---
 
 ## For AI Agents
@@ -52,3 +55,4 @@ If you're an AI agent working on this project:
 | "Who can publish?" | GHOST_WORKFLOW.md |
 | "What size should images be?" | IMAGE_PIPELINE.md |
 | "Why was this design choice made?" | DECISIONS.md |
+| "How do I add a new article to mock data?" | ADDING_MOCK_ARTICLES.md |

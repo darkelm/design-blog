@@ -20,7 +20,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="bg-neutral-100">
+    <section className="bg-neutral-100" data-section-id="newsletter">
       <div className="mx-auto max-w-content px-6 lg:px-section-x py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ export function Newsletter() {
           <h2 className="text-display-md font-semibold text-neutral-900 mb-4">
             Stay in the loop
           </h2>
-          <p className="text-lg text-neutral-600 mb-8">
+          <p className="text-body-md text-neutral-600 mb-8">
             Get the latest articles, case studies, and event invites delivered to your inbox.
           </p>
 
@@ -58,12 +58,12 @@ export function Newsletter() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="flex-1 px-4 py-3.5 bg-white border border-neutral-300 rounded-md text-base placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-shadow"
+                className="flex-1 px-4 py-3.5 bg-white border border-neutral-300 rounded-md text-body-md placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-shadow"
               />
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-6 py-3.5 bg-neutral-900 text-white font-medium rounded-md hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-base"
+                className="px-6 py-3.5 bg-neutral-900 text-white font-medium rounded-md hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-body-md"
               >
                 {status === 'loading' ? (
                   <span className="flex items-center gap-2">

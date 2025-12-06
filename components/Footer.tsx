@@ -37,7 +37,7 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-3">
               <div className="w-8 h-8 bg-neutral-900 rounded-lg" />
-              <span className="font-semibold text-lg text-neutral-900">Company Design</span>
+              <span className="font-semibold text-body-lg text-neutral-900">Company Design</span>
             </Link>
             <p className="mt-4 text-footer-link text-neutral-500 max-w-footer-desc">
               Stories, insights, and perspectives from our design team.

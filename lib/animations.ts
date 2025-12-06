@@ -275,6 +275,48 @@ export function animateColorFade(
   return tl
 }
 
+/**
+ * Animate header colors smoothly when they change
+ * Used for fixed headers that match section colors
+ * 
+ * @param element - Header element to animate
+ * @param colors - Target colors
+ * @param duration - Animation duration (default: 0.6s)
+ * @returns GSAP timeline
+ */
+export function animateHeaderColor(
+  element: HTMLElement | null,
+  colors: { backgroundColor: string; textColor: string },
+  duration: number = 0.6 // Can be imported from ANIMATION_CONFIG if needed
+) {
+  if (!element) return null
+
+  const tl = gsap.timeline()
+
+  // Animate background color
+  tl.to(element, {
+    backgroundColor: colors.backgroundColor,
+    duration,
+    ease: 'power2.out',
+  }, 0)
+
+  // Animate text color (for all text elements)
+  tl.to(element, {
+    color: colors.textColor,
+    duration,
+    ease: 'power2.out',
+  }, 0)
+
+  // Animate border color if it exists
+  tl.to(element, {
+    borderColor: colors.textColor,
+    duration,
+    ease: 'power2.out',
+  }, 0)
+
+  return tl
+}
+
 // ============================================
 // Timeline Animations
 // ============================================

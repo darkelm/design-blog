@@ -119,10 +119,10 @@ class NanoBanana2MCPServer {
       try {
         switch (name) {
           case 'generate_image':
-            return await this.generateImage(args as GenerateImageParams)
+            return await this.generateImage(args as unknown as GenerateImageParams)
 
           case 'generate_batch_images':
-            return await this.generateBatchImages(args as { prompts: Array<{ id: string; prompt: string; width?: number; height?: number }> })
+            return await this.generateBatchImages(args as unknown as { prompts: Array<{ id: string; prompt: string; width?: number; height?: number }> })
 
           default:
             throw new Error(`Unknown tool: ${name}`)

@@ -64,7 +64,7 @@ export function HeroGSAP({ post }: HeroGSAPProps) {
             </h1>
           </Link>
 
-          <p className="text-body-lg text-neutral-600 max-w-hero-excerpt">
+          <p className="text-body-md text-neutral-600 max-w-hero-excerpt">
             {post.excerpt}
           </p>
 

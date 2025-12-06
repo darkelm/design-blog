@@ -6,6 +6,8 @@
 
 import sharp from 'sharp'
 import { rgbToHex, ensureAccessibleContrast, type ColorPair } from './colorAccessibility'
+import { COLOR_CONFIG } from './constants'
+import { logger } from './utils/logger'
 
 export interface ExtractedColors {
   backgroundColor: string
@@ -18,23 +20,25 @@ export interface ExtractedColors {
  * Uses k-means clustering on sampled pixels
  */
 export async function extractDominantColor(
-  imagePath: string | Buffer | URL
+  imagePath: string | Buffer
 ): Promise<string | null> {
   try {
-    // Resize image for faster processing (max 200px width)
-    const image = sharp(imagePath)
+    // Resize image for faster processing
+    // Convert URL to string if needed
+    const input = imagePath instanceof URL ? imagePath.toString() : imagePath
+    const image = sharp(input)
     const metadata = await image.metadata()
     
     const resized = await image
-      .resize(200, null, { withoutEnlargement: true })
+      .resize(COLOR_CONFIG.IMAGE_RESIZE_WIDTH, null, { withoutEnlargement: true })
       .raw()
       .toBuffer()
 
     const channels = metadata.channels || 3
     const pixels: Array<{ r: number; g: number; b: number }> = []
 
-    // Sample pixels (every 10th pixel for performance)
-    for (let i = 0; i < resized.length; i += channels * 10) {
+    // Sample pixels for performance
+    for (let i = 0; i < resized.length; i += channels * COLOR_CONFIG.PIXEL_SAMPLE_RATE) {
       if (channels >= 3) {
         pixels.push({
           r: resized[i],
@@ -68,7 +72,7 @@ export async function extractDominantColor(
 
     return rgbToHex(dominantColor.r, dominantColor.g, dominantColor.b)
   } catch (error) {
-    console.error('Error extracting color from image:', error)
+    logger.error('Error extracting color from image:', error)
     return null
   }
 }
@@ -77,9 +81,11 @@ export async function extractDominantColor(
  * Extract dominant color and ensure accessibility
  */
 export async function extractAccessibleColor(
-  imagePath: string | Buffer | URL
+  imagePath: string | Buffer
 ): Promise<ExtractedColors | null> {
-  const dominantColor = await extractDominantColor(imagePath)
+  // Convert URL to string if needed
+  const input = imagePath instanceof URL ? imagePath.toString() : imagePath
+  const dominantColor = await extractDominantColor(input)
   
   if (!dominantColor) {
     return null
@@ -109,7 +115,7 @@ export async function extractColorFromUrl(imageUrl: string): Promise<ExtractedCo
         await fs.access(imagePath)
         return await extractAccessibleColor(imagePath)
       } catch {
-        console.warn(`Local image not found: ${imagePath}`)
+        logger.warn(`Local image not found: ${imagePath}`)
         return null
       }
     }
@@ -117,7 +123,7 @@ export async function extractColorFromUrl(imageUrl: string): Promise<ExtractedCo
     // Handle remote images
     const response = await fetch(imageUrl)
     if (!response.ok) {
-      console.warn(`Failed to fetch image: ${imageUrl}`)
+      logger.warn(`Failed to fetch image: ${imageUrl}`)
       return null
     }
 
@@ -126,7 +132,7 @@ export async function extractColorFromUrl(imageUrl: string): Promise<ExtractedCo
     
     return await extractAccessibleColor(buffer)
   } catch (error) {
-    console.error(`Error extracting color from URL ${imageUrl}:`, error)
+    logger.error(`Error extracting color from URL ${imageUrl}:`, error)
     return null
   }
 }

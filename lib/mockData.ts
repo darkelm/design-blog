@@ -1,4 +1,6 @@
 import type { Post, Tag, Author } from '@/lib/types'
+import { getArticleContent } from './mockData/contentRegistry'
+import { logger } from './utils/logger'
 
 // Mock authors
 const mockAuthors: Author[] = [
@@ -6,91 +8,99 @@ const mockAuthors: Author[] = [
     id: '1',
     slug: 'sarah-chen',
     name: 'Sarah Chen',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'Senior Product Designer',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/sarah-chen',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
   {
     id: '2',
     slug: 'michael-torres',
     name: 'Michael Torres',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'Design Systems Lead',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/michael-torres',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
   {
     id: '3',
     slug: 'priya-sharma',
     name: 'Priya Sharma',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'UX Researcher',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/priya-sharma',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
   {
     id: '4',
     slug: 'james-wilson',
     name: 'James Wilson',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'Design Tools Specialist',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/james-wilson',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
   {
     id: '5',
     slug: 'lisa-park',
     name: 'Lisa Park',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'Product Designer',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/lisa-park',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
   {
     id: '6',
     slug: 'david-kim',
     name: 'David Kim',
-    profile_image: null,
-    cover_image: null,
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
     bio: 'Accessibility Lead',
-    website: null,
-    location: null,
-    facebook: null,
-    twitter: null,
-    meta_title: null,
-    meta_description: null,
-    url: '/author/david-kim',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
+  },
+  {
+    id: '7',
+    slug: 'maya-chen',
+    name: 'Maya Chen',
+    profile_image: '/images/figma/author-avatar.svg',
+    cover_image: undefined,
+    bio: 'Service Designer working at the intersection of healthcare and emerging technology. When she\'s not mapping journeys, she\'s hiking with her rescue dog or experimenting with ceramics.',
+    website: undefined,
+    location: undefined,
+    facebook: undefined,
+    twitter: undefined,
+    meta_title: undefined,
+    meta_description: undefined,
   },
 ]
 
@@ -100,93 +110,102 @@ const mockTags: Record<string, Tag> = {
     id: 'cs-1',
     slug: 'case-studies',
     name: 'Case Studies',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/case-studies',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'process': {
     id: 'proc-1',
     slug: 'process',
     name: 'Process',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/process',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'research': {
     id: 'res-1',
     slug: 'research',
     name: 'Research',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/research',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'tools': {
     id: 'tools-1',
     slug: 'tools',
     name: 'Tools',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/tools',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'interviews': {
     id: 'int-1',
     slug: 'interviews',
     name: 'Interviews',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/interviews',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'perspectives': {
     id: 'persp-1',
     slug: 'perspectives',
     name: 'Perspectives',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/perspectives',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'spotlight': {
     id: 'spot-1',
     slug: 'spotlight',
     name: 'Spotlight',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/spotlight',
+    meta_title: undefined,
+    meta_description: undefined,
   },
   'events': {
     id: 'events-1',
     slug: 'events',
     name: 'Events',
-    description: null,
-    feature_image: null,
+    description: undefined,
+    feature_image: undefined,
     visibility: 'public',
-    meta_title: null,
-    meta_description: null,
-    url: '/tag/events',
+    meta_title: undefined,
+    meta_description: undefined,
   },
 }
 
-// Helper to create mock posts
+/**
+ * Create Mock Post
+ * 
+ * Factory function for creating mock post data with validation and error handling.
+ * 
+ * Separation of Concerns:
+ * - Structure: This function
+ * - Content: contentRegistry.ts
+ * - Validation: This function (input validation)
+ * - Error Handling: This function (graceful degradation)
+ * 
+ * Best Practices:
+ * - Validates all inputs before use
+ * - Provides fallbacks for missing data
+ * - Logs warnings for invalid configurations
+ * - Uses centralized content registry
+ * - Type-safe throughout
+ */
 function createMockPost(
   id: string,
   title: string,
@@ -196,38 +215,83 @@ function createMockPost(
   featured: boolean = false,
   daysAgo: number = 0
 ): Post {
-  const date = new Date()
-  date.setDate(date.getDate() - daysAgo)
+  // Validate inputs
+  if (!id || !title || !excerpt) {
+    logger.warn(`Invalid post data: missing required fields for post ${id}`)
+  }
+
+  // Validate tag exists
+  const tag = mockTags[tagSlug] || mockTags['process'] // Fallback to 'process' tag
+  if (!mockTags[tagSlug]) {
+    logger.warn(`Tag "${tagSlug}" not found for post ${id}. Using fallback.`)
+  }
+
+  // Validate author index
+  const author = mockAuthors[authorIndex] || mockAuthors[0] // Fallback to first author
+  if (authorIndex < 0 || authorIndex >= mockAuthors.length) {
+    logger.warn(`Invalid author index ${authorIndex} for post ${id}. Using index 0.`)
+  }
+
+  // Special date handling for specific articles
+  let date: Date
+  if (id === 'persp-1') {
+    date = new Date('2025-04-01')
+  } else {
+    date = new Date()
+    date.setDate(date.getDate() - daysAgo)
+  }
   
-  // Use local image for featured post
-  const featureImage = id === 'feat-1' 
-    ? '/images/feature-article-hero.jpg'
-    : `https://images.unsplash.com/photo-${1500000000000 + parseInt(id)}?w=1200&h=675&fit=crop`
+  // Map post IDs to Figma images
+  const imageMap: Record<string, string> = {
+    'feat-1': '/images/figma/featured-hero.jpg',
+    'rec-1': '/images/figma/recent-1.jpg',
+    'rec-2': '/images/figma/recent-2.jpg',
+    'rec-3': '/images/figma/recent-3.jpg',
+    'cs-1': '/images/figma/case-studies-1.jpg',
+    'cs-2': '/images/figma/case-studies-2.jpg',
+    'persp-1': '/images/figma/recent-1.jpg', // Using recent-1 as fallback (perspectives-1 download failed)
+    'persp-2': '/images/figma/recent-1.jpg', // Reused from Recent
+    'spot-1': '/images/figma/spotlight-1.jpg',
+    'spot-2': '/images/figma/spotlight-2.jpg',
+    'spot-3': '/images/figma/spotlight-3.jpg',
+    'tools-1': '/images/figma/recent-1.jpg', // Reused from Recent
+    'tools-2': '/images/figma/recent-2.jpg', // Reused from Recent
+    'tools-3': '/images/figma/recent-3.jpg', // Reused from Recent
+    'proc-1': '/images/figma/recent-1.jpg', // Reused from Recent
+    'proc-2': '/images/figma/recent-2.jpg', // Reused from Recent
+    'proc-3': '/images/figma/recent-3.jpg', // Reused from Recent
+  }
   
+  const featureImage = imageMap[id] || `/images/figma/recent-1.jpg` // Fallback
+  
+  // Get HTML content from registry, fallback to excerpt
+  const articleContent = getArticleContent(id)
+  const htmlContent = articleContent?.html || `<p>${excerpt}</p>`
+
   return {
     id,
     uuid: `uuid-${id}`,
     slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
     title,
-    html: `<p>${excerpt}</p>`,
+    html: htmlContent,
     excerpt,
     feature_image: featureImage,
     featured,
-    published_at: date.toISOString(),
+    published_at: id === 'persp-1' ? new Date('2025-04-01').toISOString() : date.toISOString(),
     updated_at: date.toISOString(),
     reading_time: Math.floor(Math.random() * 10) + 3,
-    tags: [mockTags[tagSlug]],
-    authors: [mockAuthors[authorIndex]],
-    primary_tag: mockTags[tagSlug],
-    primary_author: mockAuthors[authorIndex],
-    meta_title: null,
-    meta_description: null,
-    og_image: null,
-    og_title: null,
-    og_description: null,
-    twitter_image: null,
-    twitter_title: null,
-    twitter_description: null,
+    tags: [tag],
+    authors: [author],
+    primary_tag: tag,
+    primary_author: author,
+    meta_title: undefined,
+    meta_description: undefined,
+    og_image: undefined,
+    og_title: undefined,
+    og_description: undefined,
+    twitter_image: undefined,
+    twitter_title: undefined,
+    twitter_description: undefined,
   }
 }
 
@@ -244,31 +308,31 @@ export const mockPosts: Post[] = [
     2
   ),
   
-  // Recent posts
+  // Recent posts (matching Figma design)
   createMockPost(
     'rec-1',
-    'Building a Design System That Actually Scales',
-    'How we moved from scattered components to a unified system that serves our entire product suite.',
+    'How We Redesigned Our Patient Dashboard from the Ground Up',
+    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
     'process',
-    1,
+    0,
     false,
     5
   ),
   createMockPost(
     'rec-2',
-    'What We Learned from 50 User Interviews',
-    'Patterns, surprises, and insights from talking to real users about their healthcare experiences.',
-    'research',
-    2,
+    'Harnessing Generative AI for Figma Tokens: A Game Changer',
+    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
+    'tools',
+    3,
     false,
     7
   ),
   createMockPost(
     'rec-3',
-    'Our Favorite Figma Plugins This Quarter',
-    'The tools that made our workflows faster and better, from automation to collaboration.',
-    'tools',
-    3,
+    'Harnessing Generative AI to Enhance Accessibility in Digital Products',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
+    'research',
+    5,
     false,
     10
   ),
@@ -300,22 +364,22 @@ export const mockPosts: Post[] = [
     16
   ),
   
-  // Case studies
+  // Case studies (matching Figma design)
   createMockPost(
     'cs-1',
-    'Redesigning the Medication Tracker Experience',
-    'How empathy mapping and rapid prototyping helped us create a more intuitive experience for patients managing multiple medications.',
+    'Revamping Our User Interface with AI: A Design Journey',
+    'This case study explores the extensive research, iterative design processes, and collaborative efforts that led to a groundbreaking update of our digital platform. We prioritized user experience and accessibility, integrating AI to enhance functionality and engagement.',
     'case-studies',
-    4,
+    0,
     false,
     20
   ),
   createMockPost(
     'cs-2',
-    'Accessibility-First: Our Mobile App Overhaul',
-    'We rebuilt our mobile experience with accessibility as a foundation, not an afterthought. Here\'s what changed.',
+    'Transforming Sustainability in the Public Sector: AI\'s Role in Analyzing Oil Impact',
+    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
     'case-studies',
-    5,
+    0,
     false,
     25
   ),
@@ -427,11 +491,11 @@ export const mockPosts: Post[] = [
     28
   ),
   
-  // Perspectives
+  // Perspectives (matching Figma design)
   createMockPost(
     'persp-1',
-    'How We Redesigned Our Patient Dashboard from the Ground Up',
-    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
+    'The Three-Person Product Team: How AI Is Reshaping Who Gets to Build',
+    'There\'s a quiet revolution happening in product organizations, and it\'s not about the technology itself. It\'s about who gets to wield it. When the cost of making things drops dramatically, small teams with outsized capability are emerging — and designers are uniquely positioned to lead.',
     'perspectives',
     0,
     false,
@@ -439,10 +503,10 @@ export const mockPosts: Post[] = [
   ),
   createMockPost(
     'persp-2',
-    'The Future of Design Tools: What We\'re Excited About',
-    'Exploring emerging technologies and methodologies that are reshaping how we think about design and product development.',
+    'How We Redesigned Our Patient Dashboard from the Ground Up',
+    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
     'perspectives',
-    1,
+    0,
     false,
     35
   ),
@@ -450,12 +514,12 @@ export const mockPosts: Post[] = [
   // Spotlight
   createMockPost(
     'spot-1',
-    'Sarah Chen • Senior Product Designer',
-    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
+    'Shaping Journeys: Service Design in the Age of AI',
+    'As artificial intelligence reshapes how organizations deliver value to their customers, we\'re reflecting on what this means for the practice of service design itself. Service Designer Maya Chen discusses how she\'s navigating this evolving landscape, the new challenges it presents, and why she believes we\'re entering the most exciting era for the discipline.',
     'spotlight',
-    0,
+    6, // Maya Chen (index 6, which is the 7th author)
     false,
-    40
+    30
   ),
   createMockPost(
     'spot-2',

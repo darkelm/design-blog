@@ -6,6 +6,8 @@ import { motion } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 import { animateColorFade } from '@/lib/animations'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useHeaderColorContext } from './HeaderColorProvider'
+import { SectionContainer } from './SectionContainer'
 import type { Post } from '@/lib/types'
 import { formatDate, formatReadingTime, getPrimaryTagName, getPrimaryAuthorName } from '@/lib/utils'
 
@@ -20,6 +22,24 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
   const authorName = getPrimaryAuthorName(post.authors)
   const authorImage = post.authors?.[0]?.profile_image
   const heroRef = useRef<HTMLDivElement>(null)
+  const { registerSection, unregisterSection } = useHeaderColorContext()
+
+  // Register hero section with header color context
+  // Only register if colors are provided and different from current
+  useEffect(() => {
+    if (backgroundColor && textColor) {
+      registerSection('featured', { backgroundColor, textColor })
+    } else {
+      // Unregister if colors are not provided
+      unregisterSection('featured')
+    }
+
+    return () => {
+      unregisterSection('featured')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // registerSection and unregisterSection are memoized with useCallback
+  }, [backgroundColor, textColor])
 
   useEffect(() => {
     if (!heroRef.current || (!backgroundColor && !textColor)) return
@@ -47,11 +67,19 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
     }
   }, [backgroundColor, textColor])
 
+  // Set data attribute for header color detection
+  useEffect(() => {
+    if (heroRef.current) {
+      heroRef.current.setAttribute('data-section-id', 'featured')
+    }
+  }, [])
+
   return (
     <div 
       ref={heroRef}
-      className="mx-auto max-w-content px-6 lg:px-section-x py-section-y"
+      className="w-full"
     >
+      <SectionContainer>
       {/* Section Title */}
       <div className="flex items-center justify-center mb-12">
         <h2 className="text-display-xl font-extrabold text-center" style={{ color: 'inherit' }}>
@@ -106,7 +134,7 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
               </h1>
             </Link>
 
-            <p className="text-body-lg max-w-hero-excerpt text-center opacity-90" style={{ color: 'inherit' }}>
+            <p className="text-body-md max-w-hero-excerpt text-center opacity-90" style={{ color: 'inherit' }}>
               {post.excerpt}
             </p>
           </div>
@@ -130,6 +158,7 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
           </div>
         </motion.div>
       </div>
+      </SectionContainer>
     </div>
   )
 }

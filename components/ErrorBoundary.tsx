@@ -2,6 +2,7 @@
 
 import { Component, ReactNode } from 'react'
 import Link from 'next/link'
+import { logger } from '@/lib/utils/logger'
 
 interface Props {
   children: ReactNode
@@ -25,10 +26,8 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error to error reporting service in production
-    if (process.env.NODE_ENV === 'production') {
-      console.error('Error caught by boundary:', error, errorInfo)
-      // Example: logErrorToService(error, errorInfo)
-    }
+    logger.error('Error caught by boundary:', error, errorInfo)
+    // Example: logErrorToService(error, errorInfo)
   }
 
   render() {

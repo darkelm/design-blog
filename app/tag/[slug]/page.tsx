@@ -4,6 +4,7 @@ import { getTagBySlug, getPostsByTag, getTags } from '@/lib/ghost'
 import { getMockTagBySlug, getMockPostsByTag, getMockTags } from '@/lib/mockData'
 import { ArticleCard, TopicFilter } from '@/components'
 import type { Post, Tag } from '@/lib/types'
+import { logger } from '@/lib/utils/logger'
 
 // Set to true to use mock data for development
 // Change to false to use real Ghost data
@@ -23,8 +24,9 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
     tag = getMockTagBySlug(params.slug)
   } else {
     try {
-      tag = await getTagBySlug(params.slug) as Tag
-    } catch {
+      tag = await getTagBySlug(params.slug)
+    } catch (error) {
+      logger.error('Failed to fetch tag for metadata:', error)
       tag = undefined
     }
   }
@@ -46,8 +48,9 @@ export async function generateStaticParams() {
     tags = getMockTags()
   } else {
     try {
-      tags = await getTags() as Tag[]
-    } catch {
+      tags = await getTags()
+    } catch (error) {
+      logger.error('Failed to fetch tags for static params:', error)
       tags = []
     }
   }
@@ -67,11 +70,12 @@ export default async function TagPage({ params }: TagPageProps) {
   } else {
     try {
       ;[tag, posts, allTags] = await Promise.all([
-        getTagBySlug(params.slug) as Promise<Tag>,
-        getPostsByTag(params.slug, 20) as Promise<Post[]>,
-        getTags() as Promise<Tag[]>,
+        getTagBySlug(params.slug),
+        getPostsByTag(params.slug, 20),
+        getTags(),
       ])
-    } catch {
+    } catch (error) {
+      logger.error('Failed to fetch tag page data:', error)
       notFound()
     }
   }
@@ -92,7 +96,7 @@ export default async function TagPage({ params }: TagPageProps) {
             {tag.name}
           </h1>
           {tag.description && (
-            <p className="text-body-lg text-neutral-600">
+            <p className="text-body-md text-neutral-600">
               {tag.description}
             </p>
           )}
