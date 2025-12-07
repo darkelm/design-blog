@@ -29,15 +29,15 @@ Pick a shipped project with clear before/after. Doesn't need to be your biggest 
 
 ### 2. POV / Opinion Piece (Required)
 
-Something your team has a genuine stance on. Healthcare design has plenty of territory.
+Something your team has a genuine stance on. Digital product design has plenty of territory.
 
 **Potential topics:**
-- Accessibility in clinical contexts
-- Designing for users under stress (patients, caregivers)
-- Balancing compliance requirements with usability
-- The role of design in patient safety
-- How your team approaches research in healthcare
-- Why healthcare design is different (or isn't)
+- Accessibility in product design
+- Designing for users under stress or time pressure
+- Balancing business requirements with user needs
+- The role of design in product success
+- How your team approaches research in product design
+- Why product design consultancy work is different (or isn't)
 
 **Pick something you actually care about.** Readers can tell when an opinion piece is written to fill space versus written from conviction.
 
@@ -51,7 +51,7 @@ Humanizes the org. Shows there are interesting people behind the work.
 - Design lead talking about building the team and culture
 - Senior IC on their craft journey or area of expertise
 - Q&A with a researcher about a method or insight
-- Conversation with a clinical partner about collaboration
+- Conversation with a client or product partner about collaboration
 
 **Keep it substantive.** Not "What's your favorite design tool?" but "What's the hardest design problem you've solved here?"
 

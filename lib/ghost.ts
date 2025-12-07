@@ -134,7 +134,13 @@ export async function getPosts(options?: {
 
 /**
  * Search posts using Ghost's filter API
- * Searches in title, excerpt, and tags
+ * Searches in title and excerpt (Ghost doesn't support tag.name filtering)
+ * 
+ * Note: Ghost's filter API has limitations:
+ * - Supports: title, excerpt, author, tag (by slug)
+ * - Does NOT support: tags.name (nested field filtering)
+ * 
+ * For tag searching, we fetch all posts and filter client-side in the API route
  * 
  * @param query - Search query string
  * @param limit - Maximum number of results (default: 20)
@@ -146,10 +152,13 @@ export async function searchPosts(query: string, limit = 20): Promise<Post[]> {
   }
 
   try {
-    // Ghost filter syntax: search in title, excerpt, and tags
+    // Ghost filter syntax: search in title and excerpt only
     // Using ~ for contains matching (case-insensitive)
+    // Note: Ghost doesn't support tags.name in filters, so we can only search title/excerpt
     const searchTerm = query.trim()
-    const filter = `title:~${searchTerm}+excerpt:~${searchTerm}+tags.name:~${searchTerm}`
+    // Escape special characters that might break the filter syntax
+    const escapedTerm = searchTerm.replace(/[+~]/g, '')
+    const filter = `title:~${escapedTerm}+excerpt:~${escapedTerm}`
     
     const response = await api.posts.browse({
       limit,

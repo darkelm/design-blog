@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { Sora, Source_Serif_4, IBM_Plex_Mono } from 'next/font/google'
+import { Sora, Source_Sans_3, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
@@ -10,7 +10,7 @@ import { HeaderColorProvider } from '@/components/HeaderColorProvider'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { generateOrganizationStructuredData } from '@/lib/structuredData'
 
-// Load fonts - Sora (display/headings), Source Serif 4 (body), IBM Plex Mono (code)
+// Load fonts - Sora (display/headings), Source Sans 3 (body), IBM Plex Mono (code)
 const sora = Sora({
   subsets: ['latin'],
   variable: '--font-sora',
@@ -18,11 +18,11 @@ const sora = Sora({
   weight: ['400', '500', '600'],
 })
 
-const sourceSerif = Source_Serif_4({
+const sourceSans = Source_Sans_3({
   subsets: ['latin'],
-  variable: '--font-serif',
+  variable: '--font-sans-body',
   display: 'swap',
-  weight: ['400', '500'],
+  weight: ['400', '500', '600'],
 })
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -73,7 +73,7 @@ export default function RootLayout({
   const organizationStructuredData = generateOrganizationStructuredData(baseUrl)
 
   return (
-    <html lang="en" className={`${sora.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${sora.variable} ${sourceSans.variable} ${ibmPlexMono.variable}`}>
       <head>
         {/* Organization Structured Data */}
         <Script

@@ -10,10 +10,11 @@ const config: Config = {
     extend: {
       // Typography Scale - Sora + Source Serif 4 + IBM Plex Mono
       fontFamily: {
-        sans: ['var(--font-sora)', 'system-ui', 'sans-serif'],      // Sora for display/headings
-        serif: ['var(--font-serif)', 'Georgia', 'serif'],            // Source Serif 4 for body
-        mono: ['var(--font-mono)', 'Menlo', 'monospace'],            // IBM Plex Mono for code
-        display: ['var(--font-sora)', 'system-ui', 'sans-serif'],    // Alias for Sora
+        sans: ['var(--font-sora)', 'system-ui', 'sans-serif'],           // Sora for display/headings
+        'sans-body': ['var(--font-sans-body)', 'system-ui', 'sans-serif'], // Source Sans 3 for body copy
+        serif: ['var(--font-sans-body)', 'system-ui', 'sans-serif'],      // Alias for Source Sans 3 (backward compatibility)
+        mono: ['var(--font-mono)', 'Menlo', 'monospace'],                 // IBM Plex Mono for code
+        display: ['var(--font-sora)', 'system-ui', 'sans-serif'],         // Alias for Sora
       },
       fontSize: {
         // Display sizes - Sora, 600 weight
@@ -23,10 +24,10 @@ const config: Config = {
         'display-sm': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],                              // 24px - Card headlines
         'display-xs': ['1.25rem', { lineHeight: '1.3', fontWeight: '600' }],                            // 20px - Smaller card headlines
         
-        // Body text - Source Serif 4, 400 weight
-        'body-lg': ['1.25rem', { lineHeight: '1.6', fontWeight: '400' }],      // 20px - Article body copy
-        'body-md': ['1.0625rem', { lineHeight: '1.6', fontWeight: '400' }],   // 17px - Card excerpts, descriptions
-        'body-sm': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400' }],  // 15px - Secondary body text
+        // Body text - Source Sans 3/4, 400 weight
+        'body-lg': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],        // 16px - Article body copy
+        'body-md': ['0.875rem', { lineHeight: '1.6', fontWeight: '400' }],   // 14px - Card excerpts, descriptions
+        'body-sm': ['0.75rem', { lineHeight: '1.5', fontWeight: '400' }],    // 12px - Secondary body text
         
         // UI text - Sora
         'label': ['0.875rem', { lineHeight: '1.4', fontWeight: '500' }],     // 14px - Author names, dates, metadata

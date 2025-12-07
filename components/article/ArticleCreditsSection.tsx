@@ -55,7 +55,7 @@ export function ArticleCreditsSection({
                     {author.name}
                   </Link>
                   {author.bio && (
-                    <p className="text-[1rem] font-serif text-neutral-600">
+                    <p className="text-body-lg font-serif text-neutral-600">
                       {author.bio}
                     </p>
                   )}

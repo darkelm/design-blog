@@ -37,5 +37,10 @@ export const GHOST_CONFIG = {
 } as const
 
 // Mock Data Configuration
-export const USE_MOCK_DATA = process.env.USE_MOCK_DATA === 'true' || !process.env.GHOST_URL || process.env.GHOST_URL.includes('your-ghost-site')
+// Defaults to true in development, or if USE_MOCK_DATA env var is 'true', or if GHOST_URL is not set/invalid
+export const USE_MOCK_DATA = 
+  process.env.USE_MOCK_DATA === 'true' || 
+  process.env.NODE_ENV === 'development' ||
+  !process.env.GHOST_URL || 
+  process.env.GHOST_URL.includes('your-ghost-site')
 

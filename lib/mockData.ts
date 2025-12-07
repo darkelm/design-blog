@@ -586,3 +586,32 @@ export function getMockPostBySlug(slug: string): Post | undefined {
   return mockPosts.find(post => post.slug === slug)
 }
 
+/**
+ * Search mock posts by query string
+ * Searches in title, excerpt, and tag names/slugs
+ * 
+ * @param query - Search query string
+ * @param limit - Maximum number of results (default: 20)
+ * @returns Array of matching posts
+ */
+export function getMockPostsBySearch(query: string, limit: number = 20): Post[] {
+  const searchTerm = query.toLowerCase().trim()
+  if (!searchTerm) return []
+
+  // Safety check: ensure mockPosts is available
+  if (!mockPosts || !Array.isArray(mockPosts)) {
+    logger.warn('mockPosts is not available or not an array')
+    return []
+  }
+
+  return mockPosts.filter(post => {
+    const titleMatch = post.title?.toLowerCase().includes(searchTerm) || false
+    const excerptMatch = post.excerpt?.toLowerCase().includes(searchTerm) || false
+    const tagMatch = post.tags?.some(tag =>
+      tag?.name?.toLowerCase().includes(searchTerm) ||
+      tag?.slug?.toLowerCase().includes(searchTerm)
+    ) || false
+    return titleMatch || excerptMatch || tagMatch
+  }).slice(0, limit)
+}
+

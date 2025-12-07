@@ -34,7 +34,7 @@ Each mock post has a specific image prompt designed to match its content:
   - Prompt: Abstract design system visualization, modular components, clean and scalable, modern UI elements
 
 - **rec-2**: "What We Learned from 50 User Interviews"
-  - Prompt: Healthcare professionals conducting user interviews, warm and approachable, medical setting, diverse people
+  - Prompt: Product designers conducting user interviews, warm and approachable, modern workspace, diverse people
 
 - **rec-3**: "Our Favorite Figma Plugins This Quarter"
   - Prompt: Figma interface with plugins, design tools, colorful and modern, digital workspace
@@ -42,15 +42,15 @@ Each mock post has a specific image prompt designed to match its content:
 - **rec-4**: "Designing for Global Accessibility: Part 1"
   - Prompt: Global accessibility symbols, diverse cultures, inclusive design elements, world map with accessibility icons
 
-- **rec-5**: "Rethinking Color Theory for Healthcare"
-  - Prompt: Color theory visualization for healthcare, medical color palette, calming and professional, healthcare aesthetics
+- **rec-5**: "Rethinking Color Theory for Digital Products"
+  - Prompt: Color theory visualization for digital products, modern color palette, clean and professional, product design aesthetics
 
 - **rec-6**: "How to Use AI to Design Better Products"
   - Prompt: AI and design tools integration, futuristic workspace, AI assistants helping designers, modern tech
 
 ### Case Studies
-- **cs-1**: "Redesigning the Medication Tracker Experience"
-  - Prompt: Medication tracker app interface, clean healthcare UI, pill bottles and calendar, patient-friendly design
+- **cs-1**: "Redesigning the Task Management Experience"
+  - Prompt: Task management app interface, clean product UI, modern interface elements and calendar, user-friendly design
 
 - **cs-2**: "Accessibility-First: Our Mobile App Overhaul"
   - Prompt: Mobile app accessibility features, screen readers, high contrast, inclusive design, mobile interface
@@ -66,11 +66,11 @@ Each mock post has a specific image prompt designed to match its content:
   - Prompt: Design critique session, team giving feedback, design boards, collaborative workspace
 
 ### Research Posts
-- **res-1**: "Understanding Patient Anxiety in Digital Health"
-  - Prompt: Patient anxiety visualization, healthcare app usage, emotional design, supportive interface
+- **res-1**: "Understanding User Anxiety in Digital Products"
+  - Prompt: User anxiety visualization, product app usage, emotional design, supportive interface
 
-- **res-2**: "The Role of Trust in Healthcare UX"
-  - Prompt: Trust in healthcare UX, medical professionals and patients, trustworthy design, healthcare relationship
+- **res-2**: "The Role of Trust in Product UX"
+  - Prompt: Trust in product UX, designers and users, trustworthy design, user-designer relationship
 
 - **res-3**: "Quantitative vs Qualitative: Finding the Balance"
   - Prompt: Research methods balance, quantitative charts and qualitative stories, data visualization
@@ -89,12 +89,12 @@ Each mock post has a specific image prompt designed to match its content:
 - **int-1**: "In Conversation with Our New Head of Design"
   - Prompt: Professional headshot of design leader, modern office, confident and inspiring, design professional
 
-- **int-2**: "How a Nurse Became Our Best UX Advocate"
-  - Prompt: Nurse turned UX advocate, healthcare professional, empathetic and knowledgeable, healthcare design
+- **int-2**: "How a Developer Became Our Best UX Advocate"
+  - Prompt: Developer turned UX advocate, tech professional, empathetic and knowledgeable, product design
 
 ### Perspectives
-- **persp-1**: "How We Redesigned Our Patient Dashboard from the Ground Up"
-  - Prompt: Patient dashboard redesign, healthcare interface, modern and accessible, user-centered design
+- **persp-1**: "How We Redesigned Our Product Dashboard from the Ground Up"
+  - Prompt: Product dashboard redesign, modern interface, clean and accessible, user-centered design
 
 - **persp-2**: "The Future of Design Tools: What We're Excited About"
   - Prompt: Future design tools, emerging technologies, innovative interfaces, next-generation design

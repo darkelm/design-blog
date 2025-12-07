@@ -48,7 +48,7 @@ export function ArticleHeader({
                   <Link
                     key={author.slug}
                     href={`/author/${author.slug}`}
-                    className="text-[0.9375rem] font-sans font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
+                    className="text-label font-sans font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
                   >
                     {author.name}
                   </Link>
@@ -63,7 +63,7 @@ export function ArticleHeader({
           </h1>
 
           {/* Date */}
-          <p className="text-[0.9375rem] font-sans font-normal text-neutral-500 mb-8">
+          <p className="text-label font-sans font-normal text-neutral-500 mb-8">
             {formatDate(post.published_at, 'MMMM yyyy')}
           </p>
 

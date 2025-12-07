@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { searchPosts } from '@/lib/ghost'
-import { mockPosts } from '@/lib/mockData'
+import { getMockPostsBySearch } from '@/lib/mockData'
 import { USE_MOCK_DATA } from '@/lib/constants'
 
 // Force dynamic rendering for search API
@@ -22,33 +22,40 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ posts: [] }, { status: 200 })
     }
 
+    // Log for debugging (remove in production)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Search request:', { query, USE_MOCK_DATA })
+    }
+
     let posts
 
     if (USE_MOCK_DATA) {
-      // Search mock data
-      const allPosts = mockPosts
-      const searchTerm = query.toLowerCase().trim()
-      
-      posts = allPosts.filter(post => {
-        const titleMatch = post.title.toLowerCase().includes(searchTerm)
-        const excerptMatch = post.excerpt?.toLowerCase().includes(searchTerm)
-        const tagMatch = post.tags?.some(tag => 
-          tag.name.toLowerCase().includes(searchTerm) || 
-          tag.slug.toLowerCase().includes(searchTerm)
-        )
-        
-        return titleMatch || excerptMatch || tagMatch
-      })
+      // Search mock data using the dedicated search function
+      posts = getMockPostsBySearch(query, 20)
     } else {
-      // Use Ghost API
-      posts = await searchPosts(query, 20)
+      // Use Ghost API with fallback to mock data
+      try {
+        posts = await searchPosts(query, 20)
+      } catch (ghostError) {
+        console.error('Ghost API search error, falling back to mock data:', ghostError)
+        // Fallback to mock data if Ghost API fails
+        posts = getMockPostsBySearch(query, 20)
+      }
     }
 
     return NextResponse.json({ posts }, { status: 200 })
   } catch (error) {
     console.error('Search error:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      useMockData: USE_MOCK_DATA,
+    })
     return NextResponse.json(
-      { error: 'Failed to search posts' },
+      { 
+        error: 'Failed to search posts',
+        message: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     )
   }

@@ -6,9 +6,10 @@
    CSS VARIABLES / DESIGN TOKENS
    ============================================ */
 :root {
-  /* Fonts - Sora + Source Serif 4 + IBM Plex Mono */
+  /* Fonts - Sora + Source Sans 3 + IBM Plex Mono */
   --font-sora: var(--font-sora);
-  --font-serif: var(--font-serif);
+  --font-sans-body: var(--font-sans-body);
+  --font-serif: var(--font-sans-body); /* Backward compatibility alias */
   --font-mono: var(--font-mono);
   
   /* Animation timing */
@@ -179,12 +180,12 @@
     }
     
     .text-body-lg {
-      font-size: 1.125rem; /* 18px from 20px */
+      font-size: 0.9375rem; /* 15px from 16px */
       line-height: 1.6;
     }
     
     .text-body-md {
-      font-size: 1rem; /* 16px from 17px */
+      font-size: 0.875rem; /* 14px from 14px - same */
       line-height: 1.6;
     }
     
