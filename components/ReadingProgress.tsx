@@ -11,7 +11,7 @@ import { useScrollDirection } from '@/lib/useScrollDirection'
  * Fixed progress bar at the top of the viewport that fills as the user scrolls.
  * Dynamically positions itself:
  * - At top (0px) when header is hidden
- * - Below header (80px) when header is visible
+ * - Below header (64px) when header is visible
  * 
  * Separation of Concerns:
  * - Scroll tracking: This component

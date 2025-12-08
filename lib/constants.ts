@@ -6,7 +6,7 @@
 
 // Header Configuration
 export const HEADER_CONFIG = {
-  HEIGHT: 80, // Header height in pixels
+  HEIGHT: 64, // Header height in pixels (matches Figma design)
   INITIAL_CHECK_DELAY: 300, // Delay before initial color check (ms)
   POLLING_INTERVAL: 500, // Fallback polling interval (ms)
   POLLING_DURATION: 5000, // How long to poll before stopping (ms)

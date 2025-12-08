@@ -7,7 +7,6 @@ import { useRef, useEffect } from 'react'
 import { animateColorFade } from '@/lib/animations'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useHeaderColorContext } from './HeaderColorProvider'
-import { SectionContainer } from './SectionContainer'
 import type { Post } from '@/lib/types'
 import { formatDate, formatReadingTime, getPrimaryTagName, getPrimaryAuthorName } from '@/lib/utils'
 
@@ -78,10 +77,16 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
     <div 
       ref={heroRef}
       className="w-full"
+      style={{ 
+        backgroundColor: backgroundColor || 'transparent',
+        color: textColor || 'inherit',
+        paddingTop: 0,
+        marginTop: 0,
+      }}
     >
-      <SectionContainer>
+      <div className="mx-auto max-w-content px-6 lg:px-section-x pb-section-y pt-0">
       {/* Section Title */}
-      <div className="flex items-center justify-center mb-12">
+      <div className="flex items-center justify-center mb-12 pt-section-y">
         <h2 className="text-overline font-sans font-semibold uppercase tracking-[0.1em] text-center" style={{ color: 'inherit' }}>
           Feature
         </h2>
@@ -158,7 +163,7 @@ export function Hero({ post, backgroundColor, textColor }: HeroProps) {
           </div>
         </motion.div>
       </div>
-      </SectionContainer>
+      </div>
     </div>
   )
 }

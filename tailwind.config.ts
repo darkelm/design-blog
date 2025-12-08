@@ -94,7 +94,7 @@ const config: Config = {
         'card-gap': '2.5rem',     // Gap between cards (40px)
         'content-gap': '3rem',     // Gap in content areas (48px)
         'section-header-gap': '2.875rem', // Gap between section header and content (46px)
-        'header-height': '5rem',    // Header height (80px)
+        'header-height': '4rem',    // Header height (64px - matches Figma)
         'icon-size': '1.5rem',     // Standard icon size (24px)
         // Image heights - Specific Figma dimensions
         'hero-image-h': '542px',   // Hero image height

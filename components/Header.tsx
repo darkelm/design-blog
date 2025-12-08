@@ -127,7 +127,7 @@ export function Header() {
               // Trigger a check to see what section we're now over
               setTimeout(() => {
                 const scrollY = window.scrollY
-                const headerHeight = 80
+                const headerHeight = HEADER_CONFIG.HEIGHT
                 const checkPoint = scrollY + headerHeight + 50
                 
                 // Find what section is now under the header
@@ -202,8 +202,8 @@ export function Header() {
         const allSections = document.querySelectorAll('[data-section-id]')
         
         // Check each section to see if the header is over it
-        // rect.top is relative to viewport, header is at top (0-80px)
-        const headerBottom = headerHeight // Header ends at ~80px from top of viewport
+        // rect.top is relative to viewport, header is at top (0-64px)
+        const headerBottom = headerHeight // Header ends at 64px from top of viewport
         
         allSections.forEach((sectionElement) => {
           const element = sectionElement as HTMLElement
