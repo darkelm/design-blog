@@ -218,3 +218,7 @@ import Image from 'next/image'
 - Use `priority` only for critical images
 - Consider using a CDN for many images
 
+
+
+
+

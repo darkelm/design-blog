@@ -8,42 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Typography Scale - Sora + Source Serif 4 + IBM Plex Mono
+      // Typography Scale
       fontFamily: {
-        sans: ['var(--font-sora)', 'system-ui', 'sans-serif'],           // Sora for display/headings
-        'sans-body': ['var(--font-sans-body)', 'system-ui', 'sans-serif'], // Source Sans 3 for body copy
-        serif: ['var(--font-sans-body)', 'system-ui', 'sans-serif'],      // Alias for Source Sans 3 (backward compatibility)
-        mono: ['var(--font-mono)', 'Menlo', 'monospace'],                 // IBM Plex Mono for code
-        display: ['var(--font-sora)', 'system-ui', 'sans-serif'],         // Alias for Sora
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Display sizes - Sora, 600 weight
-        'display-xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.01em', fontWeight: '600' }],  // 56px - Homepage hero headline
-        'display-lg': ['2.5rem', { lineHeight: '1.15', letterSpacing: '-0.01em', fontWeight: '600' }],  // 40px - Article page title
-        'display-md': ['2rem', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '600' }],     // 32px - Section headers
-        'display-sm': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],                              // 24px - Card headlines
-        'display-xs': ['1.25rem', { lineHeight: '1.3', fontWeight: '600' }],                            // 20px - Smaller card headlines
-        
-        // Body text - Source Sans 3/4, 400 weight
-        'body-lg': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],        // 16px - Article body copy
-        'body-md': ['0.875rem', { lineHeight: '1.6', fontWeight: '400' }],   // 14px - Card excerpts, descriptions
-        'body-sm': ['0.75rem', { lineHeight: '1.5', fontWeight: '400' }],    // 12px - Secondary body text
-        
-        // UI text - Sora
-        'label': ['0.875rem', { lineHeight: '1.4', fontWeight: '500' }],     // 14px - Author names, dates, metadata
-        'tag': ['0.75rem', { lineHeight: '1.3', fontWeight: '500', letterSpacing: '0.05em' }],  // 12px - Tags, categories (uppercase)
-        'overline': ['0.6875rem', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '0.1em' }],    // 11px - Section labels, "Featured" (uppercase)
-        'mono': ['0.9375rem', { lineHeight: '1.6', fontWeight: '400' }],     // 15px - Prompts, code, AI output
-        
-        // Legacy/Compatibility tokens
-        'nav': ['0.9375rem', { lineHeight: '1.5', fontWeight: '500' }],       // 15px - Navigation links
-        'footer-heading': ['0.6875rem', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '0.05em' }],  // 11px - Footer column headers
-        'footer-link': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400' }],  // 15px - Footer links
-      },
-      fontWeight: {
-        normal: '400',
-        medium: '500',
-        semibold: '600',
+        'display-xl': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display-lg': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+        'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'display-sm': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+        'body-lg': ['1.25rem', { lineHeight: '1.6' }],
+        'body-md': ['1rem', { lineHeight: '1.6' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        'label': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.02em' }],
+        'overline': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
       },
       // Color System
       colors: {
@@ -74,47 +53,16 @@ const config: Config = {
           800: '#075985',
           900: '#0c4a6e',
         },
-        // Semantic section colors
-        section: {
-          light: '#fbfbfb',      // Off-white sections (replaces pure white)
-          dark: '#fafafa',       // Light gray sections (neutral-50)
-          border: '#e5e5e5',      // Section borders (neutral-200)
-          'header-border': '#829dce', // Header border color (matches Figma)
-        },
       },
       // Spacing & Layout
       spacing: {
         '18': '4.5rem',
         '22': '5.5rem',
         '30': '7.5rem',
-        // Semantic spacing tokens - Updated to match Figma
-        'section-x': '4rem',      // Horizontal section padding (64px)
-        'section-y': '3rem',      // Vertical section padding (48px) - Updated from 64px
-        'nav-x': '4rem',          // Navigation horizontal padding (64px)
-        'card-gap': '2.5rem',     // Gap between cards (40px)
-        'content-gap': '3rem',     // Gap in content areas (48px)
-        'section-header-gap': '2.875rem', // Gap between section header and content (46px)
-        'header-height': '4rem',    // Header height (64px - matches Figma)
-        'icon-size': '1.5rem',     // Standard icon size (24px)
-        // Image heights - Specific Figma dimensions
-        'hero-image-h': '542px',   // Hero image height
-        'card-image-h-default': '213px',  // Default 3-column card image height
-        'card-image-h-featured': '309px', // Featured 2-column card image height
-        'card-image-h-horizontal': '524px', // Horizontal card image height
-        'card-image-h-spotlight': '526px',  // Spotlight card image height
       },
       maxWidth: {
         'content': '1400px',
-        'article': '720px',        // Article max-width: 680-720px for optimal serif readability
-        'newsletter': '600px',     // Newsletter max width
-        'newsletter-form': '440px', // Newsletter form width
-        'hero-excerpt': '523px',   // Hero excerpt max width (matches Figma)
-        'hero-content': '635px',    // Hero content container width (matches Figma)
-        'footer-desc': '300px',    // Footer description max width
-      },
-      screens: {
-        'xs': '475px',
-        // Tailwind defaults: sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
+        'article': '720px',
       },
       // Animation
       transitionDuration: {

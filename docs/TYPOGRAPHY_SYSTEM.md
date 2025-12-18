@@ -197,3 +197,7 @@ Body copy never goes below 16px on mobile for readability.
 
 All typography tokens are defined in `tailwind.config.ts` and automatically applied through Tailwind classes. The fonts are loaded in `app/layout.tsx` via Next.js Google Fonts integration.
 
+
+
+
+

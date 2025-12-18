@@ -42,7 +42,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   return (
     <>
       {/* Author Header */}
-      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-12">
+      <header className="mx-auto max-w-content px-6 lg:px-10 pt-12 lg:pt-20 pb-12">
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
           {/* Avatar */}
           {author.profile_image ? (
@@ -66,7 +66,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               {author.name}
             </h1>
             {author.bio && (
-              <p className="text-body-md text-neutral-600 max-w-2xl mb-4">
+              <p className="text-body-lg text-neutral-600 max-w-2xl mb-4">
                 {author.bio}
               </p>
             )}
@@ -118,12 +118,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       </header>
 
       {/* Articles */}
-      <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-t border-neutral-200">
-        <h2 className="text-display-sm font-semibold text-neutral-900 mb-8">
+      <section className="mx-auto max-w-content px-6 lg:px-10 py-12 border-t border-neutral-200">
+        <h2 className="text-xl lg:text-2xl font-semibold text-neutral-900 mb-8">
           Articles by {author.name}
         </h2>
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-card-gap">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {posts.map((post, index) => (
               <ArticleCard key={post.id} post={post} index={index} />
             ))}

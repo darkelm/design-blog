@@ -100,3 +100,7 @@ if (require.main === module) {
 
 module.exports = { imagePrompts, generateImage };
 
+
+
+
+

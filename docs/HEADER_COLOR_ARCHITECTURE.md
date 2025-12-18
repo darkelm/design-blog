@@ -89,3 +89,7 @@ Our implementation uses:
 3. **Prefers-Reduced-Motion**: Respect user motion preferences
 4. **Server-Side Rendering**: Ensure colors are available on initial load
 
+
+
+
+

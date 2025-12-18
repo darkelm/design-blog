@@ -182,3 +182,7 @@ useEffect(() => {
 
 See `components/HeroGSAP.tsx` for a complete example of GSAP animations replacing Framer Motion.
 
+
+
+
+

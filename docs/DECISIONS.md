@@ -51,7 +51,7 @@ Keep entries concise. This is a log, not an essay.
 
 **Context:** Needed a workhorse font with excellent legibility, broad language support, and enough weights for typographic hierarchy.
 
-**Rationale:** Inter is highly readable at all sizes, has extensive weights (100-900), includes tabular figures for data, and has excellent legibility across contexts. It's also well-supported for performance via Google Fonts or self-hosting.
+**Rationale:** Inter is highly readable at all sizes, has extensive weights (100-900), includes tabular figures for data, and has excellent healthcare/clinical legibility. It's also well-supported for performance via Google Fonts or self-hosting.
 
 **Alternatives rejected:**
 - Söhne: Beautiful, but licensing complexity and cost for a blog

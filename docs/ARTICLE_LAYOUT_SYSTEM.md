@@ -204,3 +204,7 @@ export function getLayoutVariantFromPost(post: Post): ArticleLayoutVariant {
 
 That's it! The new layout is now available and will be automatically used for case study posts.
 
+
+
+
+

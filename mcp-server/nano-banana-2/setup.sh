@@ -24,3 +24,7 @@ echo "2. Update NANO_BANANA_2_API_URL if needed"
 echo "3. Configure Cursor/Claude Desktop to use this MCP server"
 echo "4. See README.md for configuration details"
 
+
+
+
+

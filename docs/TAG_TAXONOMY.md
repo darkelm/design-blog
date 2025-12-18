@@ -32,7 +32,7 @@ Posts can have **1-3** topic tags. These help with discovery and related content
 | `systems` | Design Systems | Component libraries, tokens, governance |
 | `research-methods` | Research Methods | Specific research techniques |
 | `collaboration` | Collaboration | Cross-functional work, partnerships |
-| `user-experience` | User Experience | User-facing design |
+| `patient-experience` | Patient Experience | Patient-facing design |
 | `data-visualization` | Data Viz | Charts, dashboards, data display |
 | `mobile` | Mobile | Mobile-specific design |
 | `content-design` | Content Design | UX writing, content strategy |
@@ -111,16 +111,16 @@ Once a year, audit all tags. Archive or merge any that:
 
 **Post:** "How We Reduced Form Errors by 60% with Progressive Disclosure"
 - **Primary tag:** `case-study`
-- **Topic tags:** `user-experience`, `accessibility`
+- **Topic tags:** `patient-experience`, `accessibility`
 
-**Post:** "Why Product Design Needs More Friction, Not Less"
+**Post:** "Why Healthcare Design Needs More Friction, Not Less"
 - **Primary tag:** `pov`
-- **Topic tags:** `user-experience`
+- **Topic tags:** `patient-experience`
 
 **Post:** "Our Research Operations Playbook"
 - **Primary tag:** `process`
 - **Topic tags:** `research-methods`
 
-**Post:** "In Conversation with Our Product Design Partner"
+**Post:** "In Conversation with Our Clinical Design Partner"
 - **Primary tag:** `interview`
-- **Topic tags:** `collaboration`, `user-experience`
+- **Topic tags:** `collaboration`, `patient-experience`

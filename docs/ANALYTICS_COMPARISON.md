@@ -176,3 +176,7 @@ import Script from 'next/script'
 
 For our headless Ghost + Next.js setup, **Vercel Analytics is the right choice** for performance monitoring.
 
+
+
+
+

@@ -36,3 +36,7 @@ import Image from 'next/image'
   - Featured images: 1200x675px (16:9 ratio)
 - **Optimization**: Compress before uploading (use tools like TinyPNG or ImageOptim)
 
+
+
+
+

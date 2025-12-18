@@ -38,3 +38,7 @@
 
 Would you like me to migrate all components to GSAP now, or keep framer-motion for now and just fix the build error?
 
+
+
+
+

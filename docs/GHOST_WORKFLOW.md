@@ -136,7 +136,7 @@ For minimal overhead:
 | Title | Author | Status | Editor | Target Date | Ghost Link |
 |-------|--------|--------|--------|-------------|------------|
 | Form Errors Case Study | Sarah | Review | Mike | Jan 15 | [link] |
-| Product Design Friction POV | Jordan | Drafting | — | Jan 22 | [link] |
+| Healthcare Friction POV | Jordan | Drafting | — | Jan 22 | [link] |
 
 ---
 

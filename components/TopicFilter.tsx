@@ -3,11 +3,10 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Tag } from './Tag'
-import type { Tag as TagType } from '@/lib/types'
+import type { Tag } from '@/lib/types'
 
 interface TopicFilterProps {
-  tags: TagType[]
+  tags: Tag[]
   activeTag?: string
 }
 
@@ -16,7 +15,7 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
   const isHome = pathname === '/'
 
   return (
-    <div className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
+    <div className="mx-auto max-w-content px-6 lg:px-10 mb-8">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -26,22 +25,29 @@ export function TopicFilter({ tags, activeTag }: TopicFilterProps) {
         <Link
           href="/"
           className={`
-            border px-2 py-2 rounded-sm text-tag font-sans font-medium uppercase tracking-[0.05em] transition-colors
+            px-4 py-2 rounded-full text-body-sm font-medium transition-colors
             ${isHome && !activeTag
-              ? 'border-neutral-900 bg-neutral-900 text-white'
-              : 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
+              ? 'bg-neutral-900 text-white'
+              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
             }
           `}
         >
           All
         </Link>
         {tags.map((tag) => (
-          <Tag
+          <Link
             key={tag.slug}
-            tag={tag}
             href={`/tag/${tag.slug}`}
-            active={activeTag === tag.slug}
-          />
+            className={`
+              px-4 py-2 rounded-full text-body-sm font-medium transition-colors
+              ${activeTag === tag.slug
+                ? 'bg-neutral-900 text-white'
+                : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+              }
+            `}
+          >
+            {tag.name}
+          </Link>
         ))}
       </motion.div>
     </div>

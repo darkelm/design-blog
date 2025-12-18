@@ -125,3 +125,7 @@ function MyComponent() {
 - [ ] Add stagger animations for nested elements
 - [ ] Add intersection observer fallback for older browsers
 
+
+
+
+

@@ -2,7 +2,7 @@
 
 ## What This Is
 
-An enterprise-grade design blog for a design organization within a tech consultancy specializing in digital product design. It serves as the public voice of the design team—showcasing work, sharing thinking, building reputation, and attracting talent.
+An enterprise-grade design blog for a healthcare SaaS company's design organization. It serves as the public voice of the design team—showcasing work, sharing thinking, building reputation, and attracting talent.
 
 This is not a personal blog or a marketing site. It's a professional publication comparable to:
 - Figma's blog (figma.com/blog)
@@ -15,7 +15,7 @@ This is not a personal blog or a marketing site. It's a professional publication
 ## Why It Exists
 
 **External goals:**
-- Establish the design org as a thought leader in digital product design
+- Establish the design org as a thought leader in healthcare design
 - Attract senior design talent by showing the quality and depth of work
 - Build credibility with the broader design community
 - Create a body of reference material the team can point to
@@ -35,7 +35,7 @@ This is not a personal blog or a marketing site. It's a professional publication
 - Product and engineering partners who want to understand design thinking
 
 **Secondary audience:**
-- Tech industry professionals curious about design
+- Healthcare industry professionals curious about UX
 - Design students and early-career designers
 - Conference organizers and press looking for speakers/experts
 
