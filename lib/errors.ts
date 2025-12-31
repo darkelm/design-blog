@@ -1,16 +1,39 @@
 /**
  * Error Types and Utilities
  * 
- * Custom error classes for Ghost API and content fetching
+ * Custom error classes for CMS API and content fetching.
+ * Includes both generic CMS errors and Ghost-specific errors (for backward compatibility).
  */
 
-export class GhostAPIError extends Error {
+/**
+ * Generic CMS API Error
+ * Use this for CMS-agnostic error handling
+ */
+export class CMSAPIError extends Error {
   constructor(
     message: string,
     public statusCode?: number,
+    public provider?: string, // 'ghost', 'contentful', etc.
     public originalError?: unknown
   ) {
     super(message)
+    this.name = 'CMSAPIError'
+  }
+}
+
+/**
+ * Ghost API Error
+ * Kept for backward compatibility. Extends CMSAPIError.
+ * 
+ * @deprecated Use CMSAPIError for new code. This is kept for backward compatibility.
+ */
+export class GhostAPIError extends CMSAPIError {
+  constructor(
+    message: string,
+    statusCode?: number,
+    originalError?: unknown
+  ) {
+    super(message, statusCode, 'ghost', originalError)
     this.name = 'GhostAPIError'
   }
 }
@@ -34,9 +57,18 @@ export class NotFoundError extends Error {
 
 /**
  * Check if error is a Ghost API error
+ * 
+ * @deprecated Use isCMSAPIError for new code. This is kept for backward compatibility.
  */
 export function isGhostAPIError(error: unknown): error is GhostAPIError {
   return error instanceof GhostAPIError
+}
+
+/**
+ * Check if error is a CMS API error (generic)
+ */
+export function isCMSAPIError(error: unknown): error is CMSAPIError {
+  return error instanceof CMSAPIError || error instanceof GhostAPIError
 }
 
 /**
@@ -58,14 +90,18 @@ export function isNetworkError(error: unknown): boolean {
  * Format error message for user display
  */
 export function getErrorMessage(error: unknown): string {
-  if (error instanceof GhostAPIError) {
-    if (error.statusCode === 404) {
+  // Check for generic CMS API error first
+  if (error instanceof CMSAPIError || error instanceof GhostAPIError) {
+    const apiError = error instanceof GhostAPIError 
+      ? (error as CMSAPIError) 
+      : (error as CMSAPIError)
+    if (apiError.statusCode === 404) {
       return 'Content not found'
     }
-    if (error.statusCode === 401 || error.statusCode === 403) {
+    if (apiError.statusCode === 401 || apiError.statusCode === 403) {
       return 'Authentication failed. Please check your API credentials.'
     }
-    if (error.statusCode === 429) {
+    if (apiError.statusCode === 429) {
       return 'Too many requests. Please try again later.'
     }
     return 'Failed to load content. Please try again.'
@@ -81,6 +117,9 @@ export function getErrorMessage(error: unknown): string {
 
   return 'An unexpected error occurred. Please try again.'
 }
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow images from Ghost and other sources
+  // Allow images from CMS providers and other sources
+  // Add domains for your CMS provider (Ghost, Contentful, Sanity, etc.)
   images: {
     remotePatterns: [
       {

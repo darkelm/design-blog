@@ -37,8 +37,6 @@ export default async function HomePage() {
       {featuredPost && (
         <Hero 
           post={featuredPost} 
-          backgroundColor={sectionColors.featured?.backgroundColor}
-          textColor={sectionColors.featured?.textColor}
         />
       )}
 

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Script from 'next/script'
-import { getPostBySlug, getPosts, getPostsByTag } from '@/lib/ghost'
+import { getPostBySlug, getPosts, getPostsByTag } from '@/lib/cms'
 import { getMockPostBySlug, getMockPostsByTag, mockPosts } from '@/lib/mockData'
 import { getArticleLayout, getLayoutVariantFromPost, type ArticleLayoutVariant } from '@/lib/articleLayouts'
 import { generateArticleStructuredData, generateBreadcrumbStructuredData } from '@/lib/structuredData'
@@ -17,18 +17,19 @@ const USE_MOCK_DATA = true // Set to false to use real Ghost data
 export const dynamic = 'force-dynamic'
 
 interface PostPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params
   let post: Post | undefined
   
   if (USE_MOCK_DATA) {
-    post = getMockPostBySlug(params.slug)
+    post = getMockPostBySlug(slug)
   } else {
     try {
-      post = await getPostBySlug(params.slug)
+      post = await getPostBySlug(slug)
     } catch (error) {
       logger.error('Failed to fetch post for metadata:', error)
       post = undefined
@@ -77,11 +78,12 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params
   let post: Post | undefined
   let relatedPosts: Post[] = []
   
   if (USE_MOCK_DATA) {
-    post = getMockPostBySlug(params.slug)
+    post = getMockPostBySlug(slug)
     if (post) {
       const primaryTag = post.tags?.[0]
       if (primaryTag) {
@@ -91,7 +93,7 @@ export default async function PostPage({ params }: PostPageProps) {
     }
   } else {
     try {
-      post = await getPostBySlug(params.slug)
+      post = await getPostBySlug(slug)
       if (!post) {
         notFound()
       }

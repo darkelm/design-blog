@@ -1,17 +1,18 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import type { Metadata } from 'next'
-import { getAuthorBySlug, getPostsByAuthor, getAuthors } from '@/lib/ghost'
+import { getAuthorBySlug, getPostsByAuthor, getAuthors } from '@/lib/cms'
 import { ArticleCard } from '@/components'
 import type { Post, Author } from '@/lib/types'
 
 interface AuthorPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: AuthorPageProps): Promise<Metadata> {
+  const { slug } = await params
   try {
-    const author = await getAuthorBySlug(params.slug) as Author
+    const author = await getAuthorBySlug(slug) as Author
     return {
       title: author.meta_title || author.name,
       description: author.meta_description || author.bio || `Articles by ${author.name}`,
@@ -27,13 +28,14 @@ export async function generateStaticParams() {
 }
 
 export default async function AuthorPage({ params }: AuthorPageProps) {
+  const { slug } = await params
   let author: Author
   let posts: Post[]
 
   try {
     ;[author, posts] = await Promise.all([
-      getAuthorBySlug(params.slug) as Promise<Author>,
-      getPostsByAuthor(params.slug, 20) as Promise<Post[]>,
+      getAuthorBySlug(slug) as Promise<Author>,
+      getPostsByAuthor(slug, 20) as Promise<Post[]>,
     ])
   } catch {
     notFound()
@@ -42,7 +44,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   return (
     <>
       {/* Author Header */}
-      <header className="mx-auto max-w-content px-6 lg:px-10 pt-12 lg:pt-20 pb-12">
+      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-12">
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
           {/* Avatar */}
           {author.profile_image ? (
@@ -118,12 +120,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       </header>
 
       {/* Articles */}
-      <section className="mx-auto max-w-content px-6 lg:px-10 py-12 border-t border-neutral-200">
+      <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-t border-neutral-200">
         <h2 className="text-xl lg:text-2xl font-semibold text-neutral-900 mb-8">
           Articles by {author.name}
         </h2>
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-card-gap">
             {posts.map((post, index) => (
               <ArticleCard key={post.id} post={post} index={index} />
             ))}

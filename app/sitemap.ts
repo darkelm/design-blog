@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getPosts, getTags, getAuthors } from '@/lib/ghost'
+import { getPosts, getTags, getAuthors } from '@/lib/cms'
 import type { Post, Tag, Author } from '@/lib/types'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -56,6 +56,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return routes
 }
+
+
+
 
 
 

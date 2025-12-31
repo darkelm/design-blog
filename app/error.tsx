@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { logger } from '@/lib/utils/logger'
 
 /**
  * Global Error Page
@@ -19,7 +20,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log error to error reporting service
-    console.error('Global error:', error)
+    logger.error('Global error:', error)
   }, [error])
 
   return (

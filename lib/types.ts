@@ -1,4 +1,6 @@
-// Ghost Content API Types
+// CMS Content Types
+// These types represent the canonical content structure used by the application.
+// All CMS providers must map their native types to these interfaces.
 
 export interface Post {
   id: string

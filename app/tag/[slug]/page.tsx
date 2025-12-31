@@ -1,16 +1,17 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { getTagBySlug, getPostsByTag, getTags } from '@/lib/ghost'
+import { getTagBySlug, getPostsByTag, getTags } from '@/lib/cms'
 import { ArticleCard, TopicFilter } from '@/components'
 import type { Post, Tag } from '@/lib/types'
 
 interface TagPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: TagPageProps): Promise<Metadata> {
+  const { slug } = await params
   try {
-    const tag = await getTagBySlug(params.slug) as Tag
+    const tag = await getTagBySlug(slug) as Tag
     return {
       title: tag.meta_title || tag.name,
       description: tag.meta_description || tag.description || `Articles tagged with ${tag.name}`,
@@ -26,14 +27,15 @@ export async function generateStaticParams() {
 }
 
 export default async function TagPage({ params }: TagPageProps) {
+  const { slug } = await params
   let tag: Tag
   let posts: Post[]
   let allTags: Tag[]
 
   try {
     ;[tag, posts, allTags] = await Promise.all([
-      getTagBySlug(params.slug) as Promise<Tag>,
-      getPostsByTag(params.slug, 20) as Promise<Post[]>,
+      getTagBySlug(slug) as Promise<Tag>,
+      getPostsByTag(slug, 20) as Promise<Post[]>,
       getTags() as Promise<Tag[]>,
     ])
   } catch {
@@ -43,7 +45,7 @@ export default async function TagPage({ params }: TagPageProps) {
   return (
     <>
       {/* Header */}
-      <header className="mx-auto max-w-content px-6 lg:px-10 pt-12 lg:pt-20 pb-8">
+      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-8">
         <div className="max-w-2xl">
           <p className="text-overline text-neutral-500 uppercase font-medium mb-3">
             Topic
@@ -65,13 +67,13 @@ export default async function TagPage({ params }: TagPageProps) {
       {/* Topic Filter */}
       <TopicFilter
         tags={allTags.filter(t => t.visibility === 'public').slice(0, 8)}
-        activeTag={params.slug}
+        activeTag={slug}
       />
 
       {/* Posts Grid */}
-      <section className="mx-auto max-w-content px-6 lg:px-10 py-12">
+      <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
         {posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-card-gap">
             {posts.map((post, index) => (
               <ArticleCard key={post.id} post={post} index={index} />
             ))}

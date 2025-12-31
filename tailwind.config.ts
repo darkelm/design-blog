@@ -53,16 +53,47 @@ const config: Config = {
           800: '#075985',
           900: '#0c4a6e',
         },
+        // Semantic section colors
+        section: {
+          light: '#fbfbfb',      // Off-white sections (replaces pure white)
+          dark: '#fafafa',       // Light gray sections (neutral-50)
+          border: '#e5e5e5',      // Section borders (neutral-200)
+          'header-border': '#829dce', // Header border color (matches Figma)
+        },
       },
       // Spacing & Layout
       spacing: {
         '18': '4.5rem',
         '22': '5.5rem',
         '30': '7.5rem',
+        // Semantic spacing tokens - Updated to match Figma
+        'section-x': '4rem',      // Horizontal section padding (64px)
+        'section-y': '3rem',      // Vertical section padding (48px)
+        'nav-x': '4rem',          // Navigation horizontal padding (64px)
+        'card-gap': '2.5rem',     // Gap between cards (40px)
+        'content-gap': '3rem',     // Gap in content areas (48px)
+        'section-header-gap': '2.875rem', // Gap between section header and content (46px)
+        'header-height': '5rem',    // Header height (80px)
+        'icon-size': '1.5rem',     // Standard icon size (24px)
+        // Image heights - Specific Figma dimensions
+        'hero-image-h': '542px',   // Hero image height
+        'card-image-h-default': '213px',  // Default 3-column card image height
+        'card-image-h-featured': '309px', // Featured 2-column card image height
+        'card-image-h-horizontal': '524px', // Horizontal card image height
+        'card-image-h-spotlight': '526px',  // Spotlight card image height
       },
       maxWidth: {
         'content': '1400px',
         'article': '720px',
+        'newsletter': '600px',     // Newsletter max width
+        'newsletter-form': '440px', // Newsletter form width
+        'hero-excerpt': '523px',   // Hero excerpt max width (matches Figma)
+        'hero-content': '635px',    // Hero content container width (matches Figma)
+        'footer-desc': '300px',    // Footer description max width
+      },
+      screens: {
+        'xs': '475px',
+        // Tailwind defaults: sm: 640px, md: 768px, lg: 1024px, xl: 1280px, 2xl: 1536px
       },
       // Animation
       transitionDuration: {

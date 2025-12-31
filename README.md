@@ -1,6 +1,6 @@
 # Design Blog — Next.js + Ghost Headless CMS
 
-A modern, enterprise-grade design blog built with Next.js 14 and Ghost as a headless CMS. Inspired by Figma and Google Design blogs.
+A modern, enterprise-grade design blog built with Next.js 14 and a CMS-agnostic architecture. Default CMS is Ghost, but supports any CMS provider. Inspired by Figma and Google Design blogs.
 
 ## Features
 
@@ -16,7 +16,7 @@ A modern, enterprise-grade design blog built with Next.js 14 and Ghost as a head
 
 | Layer | Technology |
 |-------|------------|
-| CMS | Ghost (self-hosted or Ghost Pro) |
+| CMS | Ghost (default) or any CMS via abstraction layer |
 | Frontend | Next.js 14 (App Router) |
 | Styling | Tailwind CSS |
 | Animations | Framer Motion |
@@ -52,11 +52,16 @@ cp .env.example .env.local
 nano .env.local
 ```
 
-Add your Ghost credentials:
+Add your CMS credentials:
+
+For Ghost (default):
 ```
+CMS_PROVIDER=ghost  # Optional, defaults to 'ghost'
 GHOST_URL=https://your-ghost.ghost.io
 GHOST_CONTENT_API_KEY=abc123...
 ```
+
+The codebase supports multiple CMS providers. See `docs/CMS_PROVIDERS.md` for details.
 
 ### 3. Install & Run
 

@@ -14,7 +14,7 @@ import {
   getFeaturedPosts,
   getPostsByTag,
   getTags,
-} from '../ghost'
+} from '../cms'
 import {
   getMockFeaturedPosts,
   getMockRecentPosts,
@@ -80,7 +80,7 @@ export async function getHomePageData(useMockData = false): Promise<HomePageData
     })
     allTags = Array.from(tagMap.values())
   } else {
-    // Fetch real data from Ghost
+    // Fetch real data from CMS
     try {
       const [
         fetchedFeatured,
