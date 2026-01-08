@@ -67,7 +67,7 @@ export function ArticleListSkeleton({ count = 6 }: { count?: number }) {
 
 export function HeroSkeleton() {
   return (
-    <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
+    <section className="mx-auto max-w-content px-fluid py-section-y">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-content-gap items-center animate-pulse">
         {/* Content skeleton */}
         <div className="flex flex-col gap-5 lg:gap-6">

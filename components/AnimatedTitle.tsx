@@ -1,7 +1,5 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
 import Link from 'next/link'
 
 interface AnimatedTitleProps {
@@ -15,13 +13,13 @@ interface AnimatedTitleProps {
  * AnimatedTitle Component
  * 
  * Displays a title with an animated underline that:
- * - Animates from left to right on hover
- * - Animates in reverse (right to left) on mouse leave
+ * - Uses CSS background-size animation (like Figma blog)
+ * - Single continuous line that grows from left to right
+ * - Animates in reverse on mouse leave
  * 
- * Separation of Concerns:
- * - Animation logic: GSAP timeline management
- * - Component logic: React lifecycle and event handling
- * - Styling: Tailwind classes + CSS for underline
+ * The underline is created using a linear-gradient background
+ * positioned at the bottom, and animates via background-size
+ * from 0% to 100% width.
  */
 export function AnimatedTitle({
   href,
@@ -29,77 +27,18 @@ export function AnimatedTitle({
   className = '',
   groupHover = false,
 }: AnimatedTitleProps) {
-  const linkRef = useRef<HTMLAnchorElement>(null)
-  const underlineRef = useRef<HTMLSpanElement>(null)
-  const timelineRef = useRef<gsap.core.Timeline | null>(null)
-
-  useEffect(() => {
-    const link = linkRef.current
-    const underline = underlineRef.current
-
-    if (!link || !underline) return
-
-    // Create timeline for hover animation
-    const tl = gsap.timeline({ paused: true })
-    timelineRef.current = tl
-
-    // Set initial state (scaleX: 0, transform-origin: left)
-    gsap.set(underline, {
-      scaleX: 0,
-      transformOrigin: 'left center',
-    })
-
-    // Animate underline from left to right
-    tl.to(underline, {
-      scaleX: 1,
-      duration: 0.4,
-      ease: 'power2.out',
-    })
-
-    // Handle hover events
-    const handleMouseEnter = () => {
-      tl.play()
-    }
-
-    const handleMouseLeave = () => {
-      tl.reverse()
-    }
-
-    if (groupHover) {
-      // For group hover, listen to parent article
-      const article = link.closest('article')
-      if (article) {
-        article.addEventListener('mouseenter', handleMouseEnter)
-        article.addEventListener('mouseleave', handleMouseLeave)
-
-        return () => {
-          article.removeEventListener('mouseenter', handleMouseEnter)
-          article.removeEventListener('mouseleave', handleMouseLeave)
-          tl.kill()
-        }
-      }
-    } else {
-      // Direct hover on link
-      link.addEventListener('mouseenter', handleMouseEnter)
-      link.addEventListener('mouseleave', handleMouseLeave)
-
-      return () => {
-        link.removeEventListener('mouseenter', handleMouseEnter)
-        link.removeEventListener('mouseleave', handleMouseLeave)
-        tl.kill()
-      }
-    }
-  }, [groupHover])
+  // CSS class for the animated underline effect
+  // Uses background-size animation for smooth left-to-right underline
+  const underlineClass = groupHover
+    ? 'animated-title-group-hover'
+    : 'animated-title-hover'
 
   return (
-    <Link href={href} ref={linkRef} className={`relative inline-block ${className}`}>
-      <span className="relative z-10">{children}</span>
-      <span
-        ref={underlineRef}
-        className="absolute bottom-0 left-0 w-full h-[2px] bg-current origin-left"
-        aria-hidden="true"
-        style={{ transform: 'scaleX(0)' }}
-      />
+    <Link 
+      href={href} 
+      className={`${underlineClass} ${className}`}
+    >
+      {children}
     </Link>
   )
 }

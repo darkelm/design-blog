@@ -25,7 +25,7 @@ interface SectionContainerProps {
 
 export function SectionContainer({ children, className = '' }: SectionContainerProps) {
   return (
-    <div className={`mx-auto max-w-content px-6 lg:px-section-x py-section-y ${className}`}>
+    <div className={`mx-auto max-w-content px-fluid py-section-y ${className}`}>
       {children}
     </div>
   )

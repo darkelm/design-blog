@@ -10,6 +10,7 @@ export { ArticleFeatureImage } from './ArticleFeatureImage'
 export { ArticleContent } from './ArticleContent'
 export { ArticleCreditsSection } from './ArticleCreditsSection'
 export { NextUpSection } from './NextUpSection'
+export { ArticleIntro } from './ArticleIntro'
 
 
 

@@ -11,16 +11,16 @@ import { animateHeaderColor } from '@/lib/animations'
 import { AnimatedNavLink } from './AnimatedNavLink'
 import { SearchModal } from './SearchModal'
 import { HEADER_CONFIG, ANIMATION_CONFIG } from '@/lib/constants'
+import { FEATURED_TOPICS, ALL_TOPICS } from '@/lib/constants/topics'
 import { logger } from '@/lib/utils/logger'
 
 const navigation = [
-  { name: 'Latest', href: '/' },
-  { name: 'Case Studies', href: '/tag/case-studies' },
-  { name: 'Spotlight', href: '/tag/spotlight' },
-  { name: 'Perspectives', href: '/tag/perspectives' },
-  { name: 'Tools', href: '/tag/tools' },
+  { name: 'Insights', href: '/tag/insights' },
   { name: 'Process', href: '/tag/process' },
-  { name: 'Events', href: '/tag/events' },
+  { name: 'Stories', href: '/tag/stories' },
+  { name: 'AI Playbook', href: '/tag/ai-playbook' },
+  { name: 'Experiments', href: '/tag/experiments' },
+  { name: 'Topics', href: '/topics' },
 ]
 
 /**
@@ -41,6 +41,7 @@ const navigation = [
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [topicsOpen, setTopicsOpen] = useState(false)
   const { isVisible } = useScrollDirection(10, true)
   const headerRef = useRef<HTMLElement>(null)
   const { sectionColors, defaultColors } = useHeaderColorContext()
@@ -365,7 +366,7 @@ export function Header() {
       }}
       role="banner"
     >
-      <nav className="mx-auto max-w-content px-6 lg:px-section-x" aria-label="Main navigation">
+      <nav className="mx-auto max-w-content px-fluid" aria-label="Main navigation">
         <div className="flex h-header-height items-center justify-between">
           {/* Logo */}
           <Link 
@@ -373,24 +374,147 @@ export function Header() {
             className="flex items-center justify-center"
             aria-label="Home"
           >
-            <span className="text-2xl font-bold" style={{ color: 'inherit' }}>
-              D&DP&AI
+            <span className="text-[32px] font-extrabold leading-normal" style={{ color: 'inherit' }}>
+              D&DP+AI
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex flex-1 items-center justify-between max-w-[749px] ml-auto mr-0">
             <ul className="flex items-center justify-between w-full gap-8" role="list">
-              {navigation.map((item) => (
-                <li key={item.name}>
-                  <AnimatedNavLink
-                    href={item.href}
-                    className="text-body-md font-normal whitespace-nowrap"
-                  >
-                    {item.name}
-                  </AnimatedNavLink>
-                </li>
-              ))}
+              {navigation.map((item, index) => {
+                const isTopics = item.name === 'Topics'
+
+                if (isTopics) {
+                  return (
+                    <li
+                      key={item.name}
+                      className="flex items-center gap-8 relative"
+                      onMouseEnter={() => setTopicsOpen(true)}
+                      onMouseLeave={() => setTopicsOpen(false)}
+                    >
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 text-body-md font-normal whitespace-nowrap"
+                        aria-haspopup="true"
+                        aria-expanded={topicsOpen}
+                        data-cursor-hover
+                        onClick={() => setTopicsOpen(prev => !prev)}
+                        onKeyDown={(e) => {
+                          // Close on Escape key
+                          if (e.key === 'Escape') {
+                            setTopicsOpen(false)
+                            e.currentTarget.focus()
+                          }
+                        }}
+                      >
+                        <span>Topics</span>
+                        <span
+                          aria-hidden="true"
+                          className="inline-block transition-transform duration-150"
+                          style={{
+                            transform: topicsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          }}
+                        >
+                          ▾
+                        </span>
+                      </button>
+
+                      <AnimatePresence>
+                        {topicsOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.18, ease: 'easeOut' }}
+                            className="fixed left-0 right-0 top-[80px] bg-neutral-950 text-white shadow-xl border-b border-neutral-800 z-50"
+                          >
+                            <div className="mx-auto max-w-content px-fluid py-6">
+                              <div className="flex gap-8">
+                                {/* Featured Topics (left column) */}
+                                <div className="w-[360px] flex flex-col gap-6">
+                                  <div>
+                                    <p className="text-overline uppercase font-sans text-neutral-400">
+                                      Featured Topics
+                                    </p>
+
+                                    {FEATURED_TOPICS.map((topic, idx) => (
+                                      <Link
+                                        key={topic.href}
+                                        href={topic.href}
+                                        className={`block rounded-[6px] overflow-hidden bg-neutral-900 border border-neutral-800 group ${
+                                          idx === 0 ? 'mt-3' : 'mt-2'
+                                        }`}
+                                        data-cursor-hover
+                                      >
+                                        <div className="h-[164px] bg-gradient-to-br from-neutral-700 via-neutral-800 to-neutral-900" />
+                                        <div className="px-4 py-3">
+                                          <span className="inline-flex items-center rounded-full border border-neutral-600 px-2 py-1 text-overline uppercase font-sans text-neutral-300">
+                                            {topic.tag}
+                                          </span>
+                                          <p className="mt-2 text-body-sm font-serif text-neutral-100">
+                                            {topic.description}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* Explore Topics (right side) */}
+                                <div className="flex-1">
+                                  <div className="flex items-baseline justify-between">
+                                    <p className="text-body-md font-sans font-medium text-neutral-50">
+                                      Explore topics
+                                    </p>
+                                  </div>
+                                  <div className="mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                    {ALL_TOPICS.map((topic) => (
+                                      <Link
+                                        key={topic.href}
+                                        href={topic.href}
+                                        className="inline-flex items-center justify-center rounded-full border border-neutral-700 px-3 py-1.5 text-overline uppercase font-sans text-neutral-200 hover:border-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
+                                        data-cursor-hover
+                                      >
+                                        {topic.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {index === navigation.length - 2 && (
+                        <span
+                          className="text-body-md font-normal"
+                          style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                        >
+                          |
+                        </span>
+                      )}
+                    </li>
+                  )
+                }
+
+                return (
+                  <li key={item.name} className="flex items-center gap-8">
+                    <AnimatedNavLink
+                      href={item.href}
+                      className="text-body-md font-normal whitespace-nowrap"
+                    >
+                      {item.name}
+                    </AnimatedNavLink>
+                    {index === navigation.length - 2 && (
+                      <span className="text-body-md font-normal" style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}>
+                        |
+                      </span>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
             
             {/* Search Icon */}

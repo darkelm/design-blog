@@ -45,7 +45,7 @@ export default async function TagPage({ params }: TagPageProps) {
   return (
     <>
       {/* Header */}
-      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-8">
+      <header className="mx-auto max-w-content px-fluid pt-12 lg:pt-20 pb-8">
         <div className="max-w-2xl">
           <p className="text-overline text-neutral-500 uppercase font-medium mb-3">
             Topic
@@ -71,7 +71,7 @@ export default async function TagPage({ params }: TagPageProps) {
       />
 
       {/* Posts Grid */}
-      <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y">
+      <section className="mx-auto max-w-content px-fluid py-section-y">
         {posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-card-gap">
             {posts.map((post, index) => (

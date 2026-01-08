@@ -1,4 +1,5 @@
 export { Header } from './Header'
+export { QuoteArticle } from './QuoteArticle'
 export { Footer } from './Footer'
 export { Hero } from './Hero'
 export { ArticleCard } from './ArticleCard'
@@ -27,3 +28,4 @@ export {
 export { ReadingProgress } from './ReadingProgress'
 export { ShareButton } from './ShareButton'
 export { GoogleAnalytics } from './GoogleAnalytics'
+export { CustomCursor } from './CustomCursor'

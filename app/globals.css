@@ -6,11 +6,10 @@
    CSS VARIABLES / DESIGN TOKENS
    ============================================ */
 :root {
-  /* Fonts - Sora + Source Sans 3 + IBM Plex Mono */
-  --font-sora: var(--font-sora);
-  --font-sans-body: var(--font-sans-body);
-  --font-serif: var(--font-sans-body); /* Backward compatibility alias */
-  --font-mono: var(--font-mono);
+  /* Fonts - Plus Jakarta Sans + Lora */
+  /* Note: CSS variables are set in layout.tsx via Next.js font loaders */
+  /* --font-sans is Plus Jakarta Sans */
+  /* --font-serif is Lora */
   
   /* Animation timing */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -35,6 +34,12 @@
   body {
     @apply bg-section-light text-neutral-800 text-body-md font-serif;
     font-feature-settings: 'kern' 1, 'liga' 1;
+    cursor: none; /* Hide default cursor - custom cursor will show */
+  }
+
+  /* Hide default cursor on all elements when custom cursor is active */
+  * {
+    cursor: none !important;
   }
 
   /* Focus states */
@@ -49,6 +54,28 @@
 }
 
 /* ============================================
+   CUSTOM CURSOR ANIMATION
+   ============================================ */
+@layer components {
+  @keyframes cursor-shake {
+    0%,
+    100% {
+      transform: translate(-50%, -50%);
+    }
+    25% {
+      transform: translate(calc(-50% - 6px), -50%);
+    }
+    75% {
+      transform: translate(calc(-50% + 6px), -50%);
+    }
+  }
+
+  .cursor-shake {
+    animation: cursor-shake 0.22s ease-in-out;
+  }
+}
+
+/* ============================================
    PROSE / ARTICLE CONTENT
    ============================================ */
 @layer components {
@@ -57,25 +84,25 @@
     max-width: 720px;
   }
 
-  /* Article headings - Sora */
+  /* Article headings - Plus Jakarta Sans Medium */
   .prose h1 {
-    @apply text-display-lg font-semibold text-neutral-900 mt-12 mb-6 font-sans;
+    @apply text-display-lg font-medium text-neutral-900 mt-12 mb-6 font-sans;
   }
 
   .prose h2 {
-    @apply text-[1.75rem] font-semibold text-neutral-900 mt-10 mb-3 font-sans;
-    /* 28px Sora 600, margin-top: 2.5em (40px), margin-bottom: 0.75em (12px) */
+    @apply text-[1.75rem] font-medium text-neutral-900 mt-10 mb-3 font-sans;
+    /* 28px Plus Jakarta Sans Medium */
   }
 
   .prose h3 {
-    @apply text-[1.375rem] font-semibold text-neutral-900 mt-8 mb-2 font-sans;
-    /* 22px Sora 600, margin-top: 2em (32px), margin-bottom: 0.5em (8px) */
+    @apply text-[1.375rem] font-medium text-neutral-900 mt-8 mb-2 font-sans;
+    /* 22px Plus Jakarta Sans Medium */
   }
 
-  /* Paragraphs - Source Serif 4, 20px, 1.5em spacing */
+  /* Paragraphs - Lora Regular, 16px, line-height 24px */
   .prose p {
     @apply mb-6;
-    line-height: 1.6;
+    line-height: 1.5; /* 24px line-height for 16px text */
   }
 
   .prose a {
@@ -105,16 +132,16 @@
     @apply list-decimal;
   }
 
-  /* Blockquotes - 22px Source Serif 4 italic */
+  /* Blockquotes - Lora Regular italic */
   .prose blockquote {
     @apply border-l-4 border-neutral-200 pl-6 italic text-neutral-600 my-8;
     font-size: 1.375rem;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
-  /* Pull quotes - 28px Source Serif 4 500 */
+  /* Pull quotes - Lora Regular */
   .prose blockquote.pull-quote {
-    @apply text-[1.75rem] font-medium not-italic border-0 pl-0;
+    @apply text-[1.75rem] font-normal not-italic border-0 pl-0;
     line-height: 1.5;
   }
 
@@ -126,7 +153,7 @@
     @apply my-10;
   }
 
-  /* Captions - 14px Sora 400, muted gray */
+  /* Captions - Plus Jakarta Sans Regular, 14px */
   .prose figcaption {
     @apply text-label text-neutral-500 mt-3 text-center font-sans font-normal;
   }
@@ -150,6 +177,32 @@
 
   .prose hr {
     @apply border-neutral-200 my-12;
+  }
+}
+
+/* ============================================
+   FLUID RESPONSIVE MARGINS & PADDING
+   ============================================ */
+@layer utilities {
+  /* Percentage-based container creates minimal edge spacing
+     Container is 96% of viewport - content sits closer to screen edges
+     Minimal internal padding just for content edge spacing */
+  .px-fluid {
+    /* Minimal responsive padding - just for content edge spacing
+       Container width (96%) minimizes edge space
+       Formula: clamp(min, preferred, max)
+       - Mobile (375px): 20px (1.25rem)
+       - Tablet (768px): ~24px
+       - Desktop (1024px+): 32px (2rem) - minimal edge spacing */
+    padding-left: clamp(1.25rem, 2vw, 2rem); /* 20px to 32px */
+    padding-right: clamp(1.25rem, 2vw, 2rem);
+  }
+  
+  /* Fluid horizontal padding for smaller sections (e.g., Hero)
+     Scales from 24px (mobile) to 40px (desktop) */
+  .px-fluid-sm {
+    padding-left: clamp(1.5rem, 2vw + 0.5rem, 2.5rem); /* 24px to 40px */
+    padding-right: clamp(1.5rem, 2vw + 0.5rem, 2.5rem);
   }
 }
 
@@ -261,4 +314,40 @@
 .page-transition-exit-active {
   opacity: 0;
   transition: opacity 200ms ease-in;
+}
+
+/* ============================================
+   ANIMATED TITLE UNDERLINE
+   Similar to Figma blog - uses background-size animation
+   for smooth left-to-right underline effect
+   ============================================ */
+
+/* Direct hover - underline animates on link hover */
+.animated-title-hover {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.animated-title-hover:hover {
+  background-size: 100% 2px;
+}
+
+/* Group hover - underline animates when parent article is hovered */
+.animated-title-group-hover {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+/* When parent article is hovered, animate the underline */
+article:hover .animated-title-group-hover,
+.group:hover .animated-title-group-hover {
+  background-size: 100% 2px;
 }

@@ -8,6 +8,13 @@ export function formatDate(dateString: string, formatStr = 'MMMM d, yyyy'): stri
 }
 
 /**
+ * Format a date string in DD.MM.YYYY format (European format)
+ */
+export function formatDateEuropean(dateString: string): string {
+  return format(parseISO(dateString), 'dd.MM.yyyy')
+}
+
+/**
  * Format reading time
  */
 export function formatReadingTime(minutes: number): string {

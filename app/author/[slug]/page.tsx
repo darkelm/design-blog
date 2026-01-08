@@ -44,7 +44,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   return (
     <>
       {/* Author Header */}
-      <header className="mx-auto max-w-content px-6 lg:px-section-x pt-12 lg:pt-20 pb-12">
+      <header className="mx-auto max-w-content px-fluid pt-12 lg:pt-20 pb-12">
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-8">
           {/* Avatar */}
           {author.profile_image ? (
@@ -120,7 +120,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       </header>
 
       {/* Articles */}
-      <section className="mx-auto max-w-content px-6 lg:px-section-x py-section-y border-t border-neutral-200">
+      <section className="mx-auto max-w-content px-fluid py-section-y border-t border-neutral-200">
         <h2 className="text-xl lg:text-2xl font-semibold text-neutral-900 mb-8">
           Articles by {author.name}
         </h2>

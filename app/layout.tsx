@@ -1,14 +1,26 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Suspense } from 'react'
+import { Plus_Jakarta_Sans, Lora } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Providers } from '@/components/Providers'
+import { CustomCursor } from '@/components/CustomCursor'
 
-// Load fonts - customize these for your brand
-const inter = Inter({
+// Load fonts from design system
+// Plus Jakarta Sans - for headings, UI elements, tags
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
+  weight: ['400', '500', '600'], // Regular, Medium, SemiBold
+  display: 'swap',
+})
+
+// Lora - for body copy, author names, links
+const lora = Lora({
+  subsets: ['latin'],
+  variable: '--font-serif',
+  weight: ['400'], // Regular only
   display: 'swap',
 })
 
@@ -44,13 +56,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${plusJakartaSans.variable} ${lora.variable}`}>
       <body className="font-sans antialiased">
         <Providers>
+          <CustomCursor />
           <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <Suspense fallback={null}>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </Suspense>
           <Footer />
         </Providers>
       </body>

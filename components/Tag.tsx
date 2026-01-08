@@ -21,12 +21,23 @@ interface TagProps {
   href?: string
   active?: boolean
   className?: string
+  variant?: 'default' | 'dark' // Dark variant for dark backgrounds
 }
 
-function TagComponent({ tag, href, active = false, className = '' }: TagProps) {
-  const baseClasses = 'border px-2 py-2 rounded-sm text-tag font-sans font-medium uppercase tracking-[0.05em] transition-colors cursor-pointer'
-  const inactiveClasses = 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
-  const activeClasses = 'border-neutral-900 bg-neutral-900 text-white'
+function TagComponent({ tag, href, active = false, className = '', variant = 'default' }: TagProps) {
+  let baseClasses: string
+  let inactiveClasses: string
+  let activeClasses: string
+  
+  if (variant === 'dark') {
+    baseClasses = 'border border-solid border-white p-[8px] rounded-[2px] text-[14px] font-sans font-normal text-white transition-colors cursor-pointer'
+    inactiveClasses = 'hover:border-white/80 hover:bg-white/10'
+    activeClasses = 'bg-white/10'
+  } else {
+    baseClasses = 'border px-2 py-2 rounded-sm text-label font-sans font-normal transition-colors cursor-pointer'
+    inactiveClasses = 'border-neutral-800 text-neutral-800 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white'
+    activeClasses = 'border-neutral-900 bg-neutral-900 text-white'
+  }
   
   const classes = `${baseClasses} ${active ? activeClasses : inactiveClasses} ${className}`
 

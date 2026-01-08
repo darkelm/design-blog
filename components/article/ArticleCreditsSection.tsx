@@ -28,7 +28,7 @@ export function ArticleCreditsSection({
 
   return (
     <section className={`w-full border-t border-neutral-200 py-section-y ${className}`}>
-      <div className="mx-auto max-w-content px-6 lg:px-section-x">
+      <div className="mx-auto max-w-content px-fluid">
         <div className="max-w-article mx-auto">
           <h2 className="text-display-sm font-semibold text-neutral-900 mb-8">
             {title}

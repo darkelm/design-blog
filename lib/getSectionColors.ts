@@ -11,15 +11,31 @@ import { extractColorFromUrl, type ExtractedColors } from './colorExtraction'
 export type SectionKey = 'featured' | 'caseStudies' | 'perspectives' | 'process'
 
 /**
+ * Check if a URL is a video file
+ */
+function isVideoFile(url: string): boolean {
+  const videoExtensions = ['.mp4', '.webm', '.mov', '.avi', '.mkv']
+  const lowerUrl = url.toLowerCase()
+  return videoExtensions.some(ext => lowerUrl.endsWith(ext))
+}
+
+/**
  * Get the image URL from the first post in a section
+ * Skips video files and looks for the first image in the posts
  */
 function getSectionImageUrl(posts: Post[]): string | null {
   if (posts.length === 0) {
     return null
   }
 
-  // Use the first post's feature_image
-  return posts[0].feature_image || null
+  // Find the first post with a non-video feature_image
+  for (const post of posts) {
+    if (post.feature_image && !isVideoFile(post.feature_image)) {
+      return post.feature_image
+    }
+  }
+
+  return null
 }
 
 /**

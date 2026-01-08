@@ -34,7 +34,7 @@ export function ArticleFeatureImage({
 
   return (
     <div className={`w-full pb-section-y ${className}`}>
-      <div className="mx-auto max-w-content px-6 lg:px-section-x">
+      <div className="mx-auto max-w-content px-fluid">
         <div className="max-w-article mx-auto">
           <div className={`w-full ${aspectClasses[aspectRatio]} relative overflow-hidden rounded-lg`}>
             <Image

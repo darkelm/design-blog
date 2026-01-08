@@ -47,6 +47,16 @@ export function AnimatedCoverImage({
     }
   }, [post.feature_image])
 
+  // Cleanup video on unmount
+  useEffect(() => {
+    const video = videoRef.current
+    return () => {
+      if (video && !video.paused) {
+        video.pause()
+      }
+    }
+  }, [imageType])
+
   if (!post.feature_image) {
     return (
       <div className={`bg-neutral-200 flex items-center justify-center ${className}`}>

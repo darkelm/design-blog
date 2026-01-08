@@ -18,7 +18,7 @@ export function Section({
   
   return (
     <section className={`${bgColor} py-section-y ${borderClass} ${className}`}>
-      <div className="mx-auto max-w-content px-6 lg:px-section-x">
+      <div className="mx-auto max-w-content px-fluid">
         {children}
       </div>
     </section>

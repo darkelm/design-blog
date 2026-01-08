@@ -101,9 +101,24 @@ export async function extractAccessibleColor(
 }
 
 /**
+ * Check if a URL is a video file
+ */
+function isVideoFile(url: string): boolean {
+  const videoExtensions = ['.mp4', '.webm', '.mov', '.avi', '.mkv']
+  const lowerUrl = url.toLowerCase()
+  return videoExtensions.some(ext => lowerUrl.endsWith(ext))
+}
+
+/**
  * Download image from URL and extract color
  */
 export async function extractColorFromUrl(imageUrl: string): Promise<ExtractedColors | null> {
+  // Skip video files - sharp can't process them
+  if (isVideoFile(imageUrl)) {
+    logger.warn(`Skipping color extraction for video file: ${imageUrl}`)
+    return null
+  }
+
   try {
     // Handle local images (starting with /)
     if (imageUrl.startsWith('/')) {

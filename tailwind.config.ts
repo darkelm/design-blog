@@ -8,20 +8,30 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Typography Scale
+      // Typography Scale - Matching Figma Design System
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'], // Plus Jakarta Sans
+        serif: ['var(--font-serif)', 'Georgia', 'serif'], // Lora
+        display: ['var(--font-sans)', 'system-ui', 'sans-serif'], // Plus Jakarta Sans for display
       },
       fontSize: {
+        // Display sizes - Plus Jakarta Sans Medium
         'display-xl': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
         'display-lg': ['3rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
         'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
         'display-sm': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
-        'body-lg': ['1.25rem', { lineHeight: '1.6' }],
-        'body-md': ['1rem', { lineHeight: '1.6' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
-        'label': ['0.8125rem', { lineHeight: '1.4', letterSpacing: '0.02em' }],
+        // Section headers - Plus Jakarta Sans Medium, 32px
+        'section-title': ['2rem', { lineHeight: 'normal' }], // 32px
+        // Article titles - Plus Jakarta Sans Medium, 24px, line-height 32px
+        'card-title-lg': ['1.5rem', { lineHeight: '1.33' }], // 24px, line-height 32px
+        'card-title-md': ['1.25rem', { lineHeight: '1.4' }],
+        'card-title': ['1.125rem', { lineHeight: '1.5' }],
+        // Body text - Lora Regular, 16px, line-height 24px
+        'body-lg': ['1rem', { lineHeight: '1.5' }], // 16px, line-height 24px
+        'body-md': ['1rem', { lineHeight: '1.5' }], // 16px, line-height 24px
+        'body-sm': ['0.875rem', { lineHeight: 'normal' }], // 14px
+        // UI text - Plus Jakarta Sans Regular, 14px
+        'label': ['0.875rem', { lineHeight: 'normal' }], // 14px
         'overline': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.05em' }],
       },
       // Color System
@@ -83,7 +93,10 @@ const config: Config = {
         'card-image-h-spotlight': '526px',  // Spotlight card image height
       },
       maxWidth: {
-        'content': '1400px',
+        // Container that scales with viewport, allows larger max-width
+        // Uses 96% of viewport, but can grow up to 1680px (105rem) on large screens
+        // Creates appropriate edge spacing while keeping content close to edges
+        'content': 'clamp(75rem, 96vw, 105rem)', // 96% viewport, min 1200px, max 1680px
         'article': '720px',
         'newsletter': '600px',     // Newsletter max width
         'newsletter-form': '440px', // Newsletter form width

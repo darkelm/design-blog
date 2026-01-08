@@ -21,7 +21,7 @@ export function Newsletter() {
 
   return (
     <section className="bg-neutral-100">
-      <div className="mx-auto max-w-content px-6 lg:px-10 py-20 lg:py-24">
+      <div className="mx-auto max-w-content px-fluid py-20 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

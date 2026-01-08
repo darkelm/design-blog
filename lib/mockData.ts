@@ -186,6 +186,26 @@ const mockTags: Record<string, Tag> = {
     meta_title: undefined,
     meta_description: undefined,
   },
+  'ai': {
+    id: 'ai-1',
+    slug: 'ai',
+    name: 'AI',
+    description: undefined,
+    feature_image: undefined,
+    visibility: 'public',
+    meta_title: undefined,
+    meta_description: undefined,
+  },
+  'accessibility': {
+    id: 'acc-1',
+    slug: 'accessibility',
+    name: 'Accessibility',
+    description: undefined,
+    feature_image: undefined,
+    visibility: 'public',
+    meta_title: undefined,
+    meta_description: undefined,
+  },
 }
 
 /**
@@ -236,6 +256,8 @@ function createMockPost(
   let date: Date
   if (id === 'persp-1') {
     date = new Date('2025-04-01')
+  } else if (['rec-1', 'rec-2', 'rec-3', 'proc-1', 'proc-2', 'proc-3'].includes(id)) {
+    date = new Date('2026-12-01') // Fixed date for Insights and Process sections
   } else {
     date = new Date()
     date.setDate(date.getDate() - daysAgo)
@@ -244,9 +266,9 @@ function createMockPost(
   // Map post IDs to Figma images
   const imageMap: Record<string, string> = {
     'feat-1': '/images/figma/featured-hero.jpg',
-    'rec-1': '/images/figma/recent-1.jpg',
-    'rec-2': '/images/figma/recent-2.jpg',
-    'rec-3': '/images/figma/recent-3.jpg',
+    'rec-1': '/images/figma/insights-1.jpg', // Putting a little personality - Agents.jpg
+    'rec-2': '/images/figma/insights-2.jpg', // The shape of service design - ServiceDesign.jpg
+    'rec-3': '/images/figma/recent-3.jpg', // Keep current image for third article
     'cs-1': '/images/figma/case-studies-1.jpg',
     'cs-2': '/images/figma/case-studies-2.jpg',
     'persp-1': '/images/figma/recent-1.jpg', // Using recent-1 as fallback (perspectives-1 download failed)
@@ -257,16 +279,35 @@ function createMockPost(
     'tools-1': '/images/figma/recent-1.jpg', // Reused from Recent
     'tools-2': '/images/figma/recent-2.jpg', // Reused from Recent
     'tools-3': '/images/figma/recent-3.jpg', // Reused from Recent
-    'proc-1': '/images/figma/recent-1.jpg', // Reused from Recent
-    'proc-2': '/images/figma/recent-2.jpg', // Reused from Recent
-    'proc-3': '/images/figma/recent-3.jpg', // Reused from Recent
+    // Process section:
+    // - proc-1 uses the accessibility video
+    // - proc-2 and proc-3 intentionally have no image mapping so they render with a grey placeholder background
+    'proc-1': '/_videos/ai-accessibility.mp4', // Video for first Process article
   }
   
-  const featureImage = imageMap[id] || `/images/figma/recent-1.jpg` // Fallback
+  // For most posts, fall back to a generic recent image.
+  // For Process posts (proc-*), we *don't* fall back so that cards 2 and 3 show the grey placeholder background.
+  const isProcessPost = id.startsWith('proc-')
+  const defaultImage = isProcessPost ? undefined : '/images/figma/recent-1.jpg'
+  const featureImage = imageMap[id] ?? defaultImage
   
   // Get HTML content from registry, fallback to excerpt
   const articleContent = getArticleContent(id)
   const htmlContent = articleContent?.html || `<p>${excerpt}</p>`
+
+  // For Insights and Process section posts, add both AI and Accessibility tags
+  let postTags = [tag]
+  if (id === 'rec-1' || id === 'rec-2' || id === 'rec-3') {
+    const aiTag = mockTags['ai'] || tag
+    const accTag = mockTags['accessibility'] || tag
+    postTags = [aiTag, accTag]
+  } else if (id === 'proc-1' || id === 'proc-2' || id === 'proc-3') {
+    // Process posts need 'process' tag for filtering, plus AI and Accessibility tags
+    const processTag = mockTags['process'] || tag
+    const aiTag = mockTags['ai'] || tag
+    const accTag = mockTags['accessibility'] || tag
+    postTags = [processTag, aiTag, accTag]
+  }
 
   return {
     id,
@@ -280,7 +321,7 @@ function createMockPost(
     published_at: id === 'persp-1' ? new Date('2025-04-01').toISOString() : date.toISOString(),
     updated_at: date.toISOString(),
     reading_time: Math.floor(Math.random() * 10) + 3,
-    tags: [tag],
+    tags: postTags,
     authors: [author],
     primary_tag: tag,
     primary_author: author,
@@ -308,22 +349,22 @@ export const mockPosts: Post[] = [
     2
   ),
   
-  // Recent posts (matching Figma design)
+  // Recent posts (matching Figma design - Insights section)
   createMockPost(
     'rec-1',
-    'How We Redesigned Our Patient Dashboard from the Ground Up',
-    'A deep dive into the research, iteration, and collaboration that shaped our most ambitious product update yet. We rebuilt the entire experience with accessibility and user needs at the center.',
-    'process',
+    'Putting a little personality into our agentic future',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
+    'ai',
     0,
     false,
     5
   ),
   createMockPost(
     'rec-2',
-    'Harnessing Generative AI for Figma Tokens: A Game Changer',
-    'Discover how Generative AI is revolutionizing the way we create and manage Figma tokens.',
-    'tools',
-    3,
+    'The shape of service design to come',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
+    'accessibility',
+    0,
     false,
     7
   ),
@@ -331,8 +372,8 @@ export const mockPosts: Post[] = [
     'rec-3',
     'Harnessing Generative AI to Enhance Accessibility in Digital Products',
     'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
-    'research',
-    5,
+    'ai',
+    0,
     false,
     10
   ),
@@ -340,7 +381,7 @@ export const mockPosts: Post[] = [
     'rec-4',
     'Designing for Global Accessibility: Part 1',
     'How we approach accessibility across different cultures, languages, and technical constraints.',
-    'process',
+    'accessibility',
     0,
     false,
     12
@@ -384,20 +425,20 @@ export const mockPosts: Post[] = [
     25
   ),
   
-  // Process posts
+  // Process posts (matching Figma design)
   createMockPost(
     'proc-1',
-    'From Sketch to Ship: Our Design Process',
-    'A detailed walkthrough of how we take ideas from initial concepts to shipped features.',
+    'Making accessibility the foundation of AI',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
     'process',
-    1,
+    0,
     false,
     8
   ),
   createMockPost(
     'proc-2',
-    'Collaboration Secrets: Design X Engineering',
-    'How we built stronger partnerships between design and engineering teams.',
+    'Video Gen Showdown: Runway',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
     'process',
     0,
     false,
@@ -405,10 +446,10 @@ export const mockPosts: Post[] = [
   ),
   createMockPost(
     'proc-3',
-    'Running Effective Design Critiques',
-    'Our framework for giving and receiving feedback that actually improves the work.',
+    'AI Literacy Fundamentals: MCP Servers for Designers',
+    'Exploring how generative AI can revolutionize accessibility, ensuring that all users can engage with technology seamlessly and intuitively.',
     'process',
-    1,
+    0,
     false,
     15
   ),
